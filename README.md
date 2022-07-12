@@ -16,10 +16,10 @@ Extract the server files to your place from earlier. </br>
 </br>
 
 ## Applying your server stuff </br>
-Clone/download and copy and paste all of the files into your server directory excluding the LICENSE and README.md. If it asks to overwrite, allow it. </br>
+Clone/download and copy and paste all of the files into your server directory excluding the LICENSE and README.md. If it asks to overwrite, allow it. You may also discard the startserver.bat and serverconfigwindows.txt as those were for my testing if you do not need them. </br>
 
-Edit the serverconfig.txt file according to your needs. The windows version is only there for testing. </br>
-#### DONT FORGET TO EDIT THE serverconfig.txt OR ELSE YOUR SERVER WILL NOT RUN HOW YOU WANT IT. </br>
+Edit the serverconfiglinux.txt file according to your needs. </br>
+#### DONT FORGET TO EDIT THE serverconfiglinux.txt OR ELSE YOUR SERVER WILL NOT RUN HOW YOU WANT IT. </br>
 
 Add your .tmods and modpack. If you need help with these, read further. </br>
 </br>
