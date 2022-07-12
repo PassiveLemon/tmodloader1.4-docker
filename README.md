@@ -69,7 +69,7 @@ docker run -d --name tModLoader1.4 -p 7777:7777 -v (Server dir):/server tmodload
  - The server dir is the folder that holds the servers contents. This should be the place you chose from the very start. Start from the root of your system and go all the way to that folder (ex: C:\Users\JohnDoe\tModLoaderServer\). You can edit any of these arguments to suit you. </br>
  </br>
  
-# The end
+## The end
 Assuming you did everything correctly, your container should automatically start running your server. You can check this out under the logs in the docker client. </br>
 
 Sometimes, some mods will have issues with the server when it starts up. Unfortunately, I can not do anything about this so you will have to remove that mod or find a work around yourself. </br>
