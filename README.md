@@ -16,7 +16,7 @@ Extract the server files to your place from earlier. </br>
 </br>
 
 ## Applying your server stuff </br>
-Clone/download and copy and paste all of the files into your server directory excluding the LICENSE and README.md. </br>
+Clone/download and copy and paste all of the files into your server directory excluding the LICENSE and README.md. If it asks to overwrite, allow it. </br>
 
 Edit the serverconfig.txt file according to your needs. The windows version is only there for testing. </br>
 #### DONT FORGET TO EDIT THE serverconfig.txt OR ELSE YOUR SERVER WILL NOT RUN HOW YOU WANT IT. </br>
