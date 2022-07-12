@@ -18,6 +18,8 @@ Extract the server files to your place from earlier. </br>
 ## Applying your server stuff </br>
 Clone/download and copy and paste all of the files into your server directory excluding the LICENSE and README.md. If it asks to overwrite, allow it. You may also discard the startserver.bat and serverconfigwindows.txt as those were for my testing if you do not need them. </br>
 
+If you want to run the server from a windows host, you don't need the docker details and can edit the serverconfigwindows.txt like the linux one and run the startserver.bat. </br>
+
 Edit the serverconfiglinux.txt file according to your needs. </br>
 #### DONT FORGET TO EDIT THE serverconfiglinux.txt OR ELSE YOUR SERVER WILL NOT RUN HOW YOU WANT IT. </br>
 
