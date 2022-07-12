@@ -65,13 +65,7 @@ Clone/download the git and navigate to the same directory as the Dockerfile </br
 
 Run: </br>
 ```
-docker build -t tmodloader1.4 .
-```
- - Make sure the you are in the same directory as the dockerfile. </br>
- 
-Once it finishes building, run: </br>
-```
-docker run -d --name tModLoader1.4 -p 7777:7777 -v (Server dir):/server tmodloader1.4
+docker run -d --name tModLoader1.4 -p 7777:7777 -v (Server dir):/server passivelemon/tmodloader1.4-docker
 ```
  - The server dir is the folder that holds the servers contents. This should be the place you chose from the very start. Start from the root of your system and go all the way to that folder (ex: C:\Users\JohnDoe\tModLoaderServer\). You can edit any of these arguments to suit you. </br>
  </br>
