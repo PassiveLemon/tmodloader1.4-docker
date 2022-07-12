@@ -1,0 +1,1 @@
+The world will be automatically generated and loaded upon startup if there is no world provided. This is the recommended way.
