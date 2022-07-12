@@ -61,8 +61,6 @@ Paste that into contents/ModLoader/Mods/ModPacks </br>
 </br>
 
 ## Building the container </br>
-Clone/download the git and navigate to the same directory as the Dockerfile </br>
-
 Run: </br>
 ```
 docker run -d --name tModLoader1.4 -p 7777:7777 -v (Server dir):/server passivelemon/tmodloader1.4-docker
