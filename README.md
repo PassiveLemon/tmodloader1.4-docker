@@ -16,7 +16,7 @@ Extract the server files to your place from earlier. </br>
 </br>
 
 ## Applying your server stuff </br>
-Clone/download and copy and paste all of the files into your server directory excluding the LICENSE and README.md. If it asks to overwrite, allow it. </br>
+Clone/download and copy and paste all of the files into your server directory excluding the Dockerfile, LICENSE, and README.md. If it asks to overwrite, allow it. </br>
 
  - If you want to run the server from a windows host, edit the serverconfigwindows.txt and use the startserver.bat. </br>
 
