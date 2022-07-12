@@ -1,5 +1,4 @@
-#FROM cm2network/steamcmd:root
-FROM ubuntu
+FROM cm2network/steamcmd:root
 
 RUN apt update -y &&\
     apt upgrade -y &&\
