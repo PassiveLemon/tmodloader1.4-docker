@@ -16,12 +16,17 @@ Extract the server files to your place from earlier. </br>
 </br>
 
 ## Applying your server stuff </br>
-Clone/download and copy and paste all of the files into your server directory excluding the LICENSE and README.md. If it asks to overwrite, allow it. You may also discard the startserver.bat and serverconfigwindows.txt as those were for my testing if you do not need them. </br>
+Clone/download and copy and paste all of the files into your server directory excluding the LICENSE and README.md. If it asks to overwrite, allow it. </br>
 
-If you want to run the server from a windows host, you don't need the docker details and can edit the serverconfigwindows.txt like the linux one and run the startserver.bat. </br>
+ - If you want to run the server from a windows host, edit the serverconfigwindows.txt and use the startserver.bat. </br>
 
-Edit the serverconfiglinux.txt file according to your needs. </br>
-#### DONT FORGET TO EDIT THE serverconfiglinux.txt OR ELSE YOUR SERVER WILL NOT RUN HOW YOU WANT IT. </br>
+ - If you want to run the server on linux without a docker container, edit the serverconfiglinux.txt and use the startserver.sh. </br>
+
+ - If you want to run the server in a docker container, use the same instructions as linux, and use the docker details. </br>
+
+Edit the serverconfig.txt file according to your needs. If you don't, your server will not run how you want it. </br>
+Do not forget your serverconfig.txt. </br>
+
 
 Add your .tmods and modpack. If you need help with these, read further. </br>
 </br>
