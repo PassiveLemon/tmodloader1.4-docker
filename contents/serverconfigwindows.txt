@@ -1,0 +1,17 @@
+# Vanilla
+autocreate=2
+difficulty=1
+worldname=(name of world)
+worldpath=C:\TERRARIASERVER\contents\ModLoader\Worlds\
+world=C:\TERRARIASERVER\contents\ModLoader\Worlds\(name of world).wld
+password=123
+maxplayers=8
+port=7777
+language=en-US
+npcstream=60
+priority=1
+
+# TML
+savedirectory=C:\TERRARIASERVER\contents\
+modpath=C:\TERRARIASERVER\contents\ModLoader\Mods\
+modpack=C:\TERRARIASERVER\contents\ModLoader\Mods\ModPacks\(modpack name)\mods\enabled.json
