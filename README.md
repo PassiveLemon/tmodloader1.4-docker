@@ -71,8 +71,8 @@ docker run -d --name tModLoader1.4 -p 7777:7777 -v (Server dir):/server passivel
 ## The end
 Assuming you did everything correctly, your container should automatically start running your server. You can check this out under the logs in the docker client. </br>
 
-Theres still some issues I have to iron out. Especially the, `dlopen failed trying to load:
-steamclient.so...` error. If you know how to fix this, PLEASE TELL ME.
 Sometimes, some mods will have issues with the server when it starts up. Unfortunately, I can not do anything about this so you will have to remove that mod or find a work around yourself. </br>
 
 Have fun! </br>
+
+As of 7/11, there is a weird issue where if you build the container and then run it, it will work perfectly fine but if you pull it and then run it, you will get the `dlopen failed trying to load: steamclient.so...` error. If you know how to fix this, please tell me.
