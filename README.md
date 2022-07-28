@@ -22,7 +22,7 @@ Clone/download and copy and paste all of the files into your server directory ex
 
  - If you want to run the server on linux without a docker container, edit the serverconfiglinux.txt and use the startserver.sh. </br>
 
- - If you want to run the server in a docker container, use the same instructions as linux, and use the docker details. </br>
+ - If you want to run the server in a docker container, use the same instructions as linux, and use the container building instructions. </br>
 
 Edit the serverconfig.txt file according to your needs. If you don't, your server will not run how you want it. </br>
 Do not forget your serverconfig.txt. </br>
@@ -45,7 +45,7 @@ If the folder: </br>
 
  - has workshop.json, and folders like 2022.X, use the .tmod in the folder that has the highest 2022.X. </br>
 
-Put them in contents/ModLoader/Mods </br>
+Put them in (yourserverdir)\contents\ModLoader\Mods\ </br>
 </br>
 
 ## To get your ModPack: </br>
@@ -57,7 +57,9 @@ In tModLoader on your client, go to the mod pack section </br>
 
 Copy the folder of the modpack you want to use in the server. </br>
 
-Paste that into contents/ModLoader/Mods/ModPacks </br>
+Paste that into (yourserverdir)\contents\ModLoader\Mods\ModPacks\ </br>
+
+If your modpack fails to create, it’s because the enabled.json cannot be created in the modpack folder. To “fix” this, go back 1 directories and copy that enabled.json into the mods folder in your modpack. However, this won’t result in the creation of the install.txt file but with these instructions, it isn't necessary. Fargos Souls mod can cause this. </br>
 </br>
 
 ## Building the container </br>
