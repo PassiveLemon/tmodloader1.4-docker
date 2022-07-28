@@ -8,7 +8,7 @@ You need to make sure that your server is set up how you want it. This includes 
 
 # Instructions </br>
 ## Basics
-Depending on your host, find a suitable place to store you server files. Make sure it is safe and accessible. </br>
+Depending on your host, find a suitable place to store your server files. Make sure it is safe and accessible. </br>
 
 Download the latest tModLoader 1.4 server files. The latest is [2022.6.96.4](https://github.com/tModLoader/tModLoader/releases/tag/v2022.06.96.4) at the time of writing this. </br>
 
@@ -34,9 +34,9 @@ Add your .tmods and modpack. If you need help with these, read further. </br>
 ## To get your .tmods: </br>
  - This part may be tedious depending on how many mods you have. Bear with me and read the instructions carefully. There might be a better way to do it but I am unaware of it. </br>
 
-Go to C:\Program Files (x86)\Steam\steamapps\workshop\content\1281930 or the equivalent linux directory. </br>
+Go to C:\Program Files (x86)\Steam\steamapps\workshop\content\1281930\ or the equivalent linux directory. </br>
 
-Each of these files is a mod from the workshop. Go through each folder and copy and paste the correrct .tmod into the mods folder in the file from earlier. Use the list below to figure out which .tmod file to use. </br>
+These folders are mods from the workshop. Go through each folder and copy and paste the correct .tmod into the mods folder. Use the list below to figure out which .tmod file to use. </br>
 
 If the folder: </br>
  - has workshop.json and (modname).tmod, use that .tmod. </br>
