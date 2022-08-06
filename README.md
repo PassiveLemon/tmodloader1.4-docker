@@ -10,7 +10,7 @@ You need to make sure that your server is set up how you want it. This includes 
 ## Basics
 Depending on your host, find a suitable place to store your server files. Make sure it is safe and accessible. </br>
 
-Download the latest tModLoader 1.4 server files. The latest is [2022.6.96.4](https://github.com/tModLoader/tModLoader/releases/tag/v2022.06.96.4) at the time of writing this. </br>
+Download the latest tModLoader 1.4 server files. The latest is [v2022.07.58.8](https://github.com/tModLoader/tModLoader/releases/tag/v2022.07.58.8) at the time of writing this. </br>
 
 Extract the server files to your place from earlier. </br>
 </br>
@@ -22,30 +22,13 @@ Clone/download and copy and paste all of the files into your server directory ex
 
  - If you want to run the server on linux without a docker container, edit the serverconfiglinux.txt and use the startserver.sh. </br>
 
- - If you want to run the server in a docker container, use the same instructions as linux, and use the container building instructions. </br>
+ - If you want to run the server in a docker container, use the same instructions as linux, and use the docker container instructions. </br>
 
 Edit the serverconfig.txt file according to your needs. If you don't, your server will not run how you want it. </br>
 Do not forget your serverconfig.txt. </br>
 
 
-Add your .tmods and modpack. If you need help with these, read further. </br>
-</br>
-
-## To get your .tmods: </br>
- - This part may be tedious depending on how many mods you have. Bear with me and read the instructions carefully. There might be a better way to do it but I am unaware of it. </br>
-
-Go to C:\Program Files (x86)\Steam\steamapps\workshop\content\1281930\ or the equivalent linux directory. </br>
-
-These folders are mods from the workshop. Go through each folder and copy and paste the correct .tmod into the mods folder. Use the list below to figure out which .tmod file to use. </br>
-
-If the folder: </br>
- - has workshop.json and (modname).tmod, use that .tmod. </br>
-
- - has workshop.json, (modname).tmod, and folders like 2022.X, use the .tmod in the folder that has the highest 2022.X. </br>
-
- - has workshop.json, and folders like 2022.X, use the .tmod in the folder that has the highest 2022.X. </br>
-
-Put them in (yourserverdir)\contents\ModLoader\Mods\ </br>
+Add your modpack. If you need help with this, read further. </br>
 </br>
 
 ## To get your ModPack: </br>
@@ -59,10 +42,10 @@ Copy the folder of the modpack you want to use in the server. </br>
 
 Paste that into (yourserverdir)\contents\ModLoader\Mods\ModPacks\ </br>
 
-If your modpack fails to create, it’s because the enabled.json cannot be created in the modpack folder. To “fix” this, go back 1 directories and copy that enabled.json into the mods folder in your modpack. However, this won’t result in the creation of the install.txt file but with these instructions, it isn't necessary. Fargos Souls mod can cause this. </br>
+<strike>If your modpack fails to create, it’s because the enabled.json cannot be created in the modpack folder. To “fix” this, go back 1 directories and copy that enabled.json into the mods folder in your modpack. However, this won’t result in the creation of the install.txt file but with these instructions, it isn't necessary.</strike> This should be fixed in v2022.07.58.8. In this version, the mods are also included with the modpack so you do not need to fetch each mod yourself anymore. Yay! </br>
 </br>
 
-## Building the container </br>
+## Docker container </br>
 Run: </br>
 ```
 docker run -d --name tModLoader1.4 -p 7777:7777 -v (Server dir):/server passivelemon/tmodloader1.4-docker
@@ -73,9 +56,9 @@ As of 7/11, there is a weird issue where if you build the container and then run
 </br>
 
 
-## The end
+## The end </br>
 Assuming you did everything correctly, your container should automatically start running your server. You can check this out under the logs in the docker client. </br>
 
-Sometimes, some mods will have issues with the server when it starts up. Unfortunately, I can not do anything about this so you will have to remove that mod or find a work around yourself. </br>
+Some mods might have issues with the server when it starts up. Unfortunately, I can not do anything about this so you will have to remove that mod or find a work around yourself. </br>
 
 Have fun! </br>
