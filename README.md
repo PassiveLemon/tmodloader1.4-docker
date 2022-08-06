@@ -31,7 +31,7 @@ Add your modpack. If you need help with this, read the next section. </br>
 </br>
 
 ## To get your modpack: </br>
-In tModLoader on your client, enable any mods you want to use in your modpack. You should not include any client side only mods in the server modpack file. </br>
+In tModLoader on your client, enable any mods you want to use in your modpack. You should not include any client side only mods in the server modpack file. The modpack will automatically contain the .tmods for the server to use. </br>
 
 Go to the modpack section. </br>
 
@@ -44,8 +44,6 @@ Copy the folder of the modpack you want to use in the server. </br>
 Paste that into (yourserverdir)\contents\ModLoader\Mods\ModPacks\ </br>
 
 Again, make sure you edit the serverconfig.txt file and that it is correct. </br>
-
- - In this version, the mods are also included with the modpack so you do not need to fetch each mod yourself anymore. Yay! </br>
 </br>
 
 ## Docker container </br>
@@ -54,10 +52,7 @@ Run: </br>
 docker run -d --name tModLoader1.4 -p 7777:7777 -v (Server dir):/server passivelemon/tmodloader1.4-docker
 ```
  - The server dir is the folder that holds the servers contents. This should be the place you chose from the very start. Start from the root of your system and go all the way to that folder (ex: C:\Users\JohnDoe\tModLoaderServer\). You can edit any of these arguments to suit you. </br>
- 
-As of 7/11, there is a weird issue where if you build the container and then run it, it will work perfectly fine but if you pull it and then run it, you might get an error having to do with steam in the Natives.log. If you know how to fix this, please tell me. </br>
 </br>
-
 
 ## The end </br>
 Assuming you did everything correctly, your container should automatically start running your server. You can check this out under the logs in the docker client. </br>
