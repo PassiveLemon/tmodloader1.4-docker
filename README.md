@@ -15,8 +15,8 @@ Download the latest tModLoader 1.4 server files. The latest is [v2022.07.58.8](h
 Extract the server files to your place from earlier. </br>
 </br>
 
-## Applying your server stuff </br>
-Clone/download and copy and paste all of the files into your server directory excluding the Dockerfile, LICENSE, and README.md. If it asks to overwrite, allow it. </br>
+## Setting up your server files </br>
+Clone/download and copy and paste all of the files into your server directory excluding the Dockerfile, LICENSE, and README.md (these are not necessary). If it asks to overwrite, allow it. </br>
 
  - If you want to run the server from a windows host, edit the serverconfigwindows.txt and use the startserver.bat. </br>
 
@@ -27,12 +27,13 @@ Clone/download and copy and paste all of the files into your server directory ex
 Edit the serverconfig.txt file according to your needs. If you don't, your server will not run how you want it. </br>
 Do not forget your serverconfig.txt. </br>
 
-
-Add your modpack. If you need help with this, read further. </br>
+Add your modpack. If you need help with this, read the next section. </br>
 </br>
 
-## To get your ModPack: </br>
-In tModLoader on your client, go to the mod pack section </br>
+## To get your modpack: </br>
+In tModLoader on your client, enable any mods you want to use in your modpack. You should not include any client side only mods in the server modpack file. </br>
+
+Go to the modpack section. </br>
 
 "Save Enabled as New Mod Pack" </br>
 
@@ -42,7 +43,9 @@ Copy the folder of the modpack you want to use in the server. </br>
 
 Paste that into (yourserverdir)\contents\ModLoader\Mods\ModPacks\ </br>
 
-<strike>If your modpack fails to create, it’s because the enabled.json cannot be created in the modpack folder. To “fix” this, go back 1 directories and copy that enabled.json into the mods folder in your modpack. However, this won’t result in the creation of the install.txt file but with these instructions, it isn't necessary.</strike> This should be fixed in v2022.07.58.8. In this version, the mods are also included with the modpack so you do not need to fetch each mod yourself anymore. Yay! </br>
+Again, make sure you edit the serverconfig.txt file and that it is correct. </br>
+
+In this version, the mods are also included with the modpack so you do not need to fetch each mod yourself anymore. Yay! </br>
 </br>
 
 ## Docker container </br>
