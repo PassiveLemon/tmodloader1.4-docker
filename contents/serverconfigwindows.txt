@@ -13,5 +13,5 @@ priority=1
 
 # TML
 savedirectory=C:\TERRARIASERVER\contents\
-modpath=C:\TERRARIASERVER\contents\ModLoader\Mods\ModPacks\(modpack name)\mods\
+modpath=C:\TERRARIASERVER\contents\ModLoader\Mods\
 modpack=C:\TERRARIASERVER\contents\ModLoader\Mods\ModPacks\(modpack name)\mods\enabled.json
