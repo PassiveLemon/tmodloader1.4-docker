@@ -45,7 +45,7 @@ Paste that into (yourserverdir)\contents\ModLoader\Mods\ModPacks\ </br>
 
 Again, make sure you edit the serverconfig.txt file and that it is correct. </br>
 
-In this version, the mods are also included with the modpack so you do not need to fetch each mod yourself anymore. Yay! </br>
+ - In this version, the mods are also included with the modpack so you do not need to fetch each mod yourself anymore. Yay! </br>
 </br>
 
 ## Docker container </br>
