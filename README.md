@@ -22,7 +22,7 @@ Clone/download and copy and paste all of the files into your server directory ex
 
  - If you want to run the server on linux without a docker container, edit the serverconfiglinux.txt and use the startserver.sh. </br>
 
- - If you want to run the server in a docker container, use the same instructions as linux, and use the container building instructions. </br>
+ - If you want to run the server in a docker container, use the same instructions as linux, and use the docker container instructions. </br>
 
 Edit the serverconfig.txt file according to your needs. If you don't, your server will not run how you want it. </br>
 Do not forget your serverconfig.txt. </br>
