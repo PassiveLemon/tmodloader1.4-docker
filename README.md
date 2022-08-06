@@ -49,7 +49,7 @@ Again, make sure you edit the serverconfig.txt file and that it is correct. </br
 ## Docker container </br>
 Run: </br>
 ```
-docker run -d --name tModLoader1.4 -p 7777:7777 -v (Server dir):/server passivelemon/tmodloader1.4-docker
+docker run -d --name tModLoader1.4 -p 7777:7777 -v (Server dir):/server passivelemon/tmodloader1.4-docker:2022.07.58.8
 ```
  - The server dir is the folder that holds the servers contents. This should be the place you chose from the very start. Start from the root of your system and go all the way to that folder (ex: C:\Users\JohnDoe\tModLoaderServer\). You can edit any of these arguments to suit you. </br>
 </br>
