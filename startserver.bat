@@ -1,2 +1,1 @@
-#!/bin/sh
-./start-tModLoaderServer.bat -config C:\TERRARIASERVER\contents\serverconfigwindows.txt
+./start-tModLoaderServer.bat -config .\contents\serverconfigwindows.txt
