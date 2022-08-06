@@ -1,1 +1,0 @@
-The enabled.json file in your modpack will dictate which mods are loaded.
