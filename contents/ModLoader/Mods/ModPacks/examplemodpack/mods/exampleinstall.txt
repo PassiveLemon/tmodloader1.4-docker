@@ -1,1 +1,0 @@
-This file serves no function to the server other than to be used with steamcmd. Don't worry about it.
