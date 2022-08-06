@@ -13,5 +13,5 @@ priority=1
 
 # TML
 savedirectory=/server/contents/
-modpath=/server/contents/ModLoader/Mods/
+modpath=/server/contents/ModLoader/Mods/ModPacks/(modpack name)/mods/
 modpack=/server/contents/ModLoader/Mods/ModPacks/(modpack name)/mods/enabled.json
