@@ -1,2 +1,0 @@
-These serve absolutely no function to the server other than helping you figure out where you need to put things :)
-You should probably remove them once you pass that step to avoid any future confusion.

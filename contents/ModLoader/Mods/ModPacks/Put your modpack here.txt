@@ -1,1 +1,0 @@
-Make sure the enabled.json file is included in the modpack.
