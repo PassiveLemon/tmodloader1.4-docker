@@ -21,7 +21,7 @@ The configs are in the contents folder. Make sure it is correctly edited or your
 </br>
 
 ## Modpack </br>
-In tModLoader on your client, enable any mods that you want to play with. You shouldn't include any client side only mods in the modpack folder for the server. Mods are included in the modpack folder. </br>
+In tModLoader on your client, enable any mods that you want to play with. Idealy, you shouldn't include any client side only mods in the modpack folder for the server. Mods are included in the modpack folder. </br>
 
 Go to the mod pack section. </br>
 
