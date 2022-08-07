@@ -2,10 +2,13 @@ FROM ubuntu:latest
 
 RUN apt update -y &&\
     apt upgrade -y &&\
-    apt install wget curl libicu-dev -y
+    apt install wget curl libicu-dev git unzip -y &&\
+    mkdir /server/
+
+COPY entrypoint.sh /
 
 EXPOSE 7777
 
 WORKDIR /server/
 
-ENTRYPOINT ./startserver.sh
+ENTRYPOINT ["/entrypoint.sh"]
