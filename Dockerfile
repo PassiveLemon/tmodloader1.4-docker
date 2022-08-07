@@ -1,15 +1,14 @@
 FROM ubuntu:latest
 
-# Dependencies
 RUN apt update -y &&\
     apt upgrade -y &&\
     apt install wget curl libicu-dev git unzip -y &&\
     mkdir /server/
 
-COPY start.sh /
+COPY entrypoint.sh /
 
 EXPOSE 7777
 
-WORKDIR /
+WORKDIR /server/
 
-ENTRYPOINT ["/start.sh"]
+ENTRYPOINT ["/entrypoint.sh"]

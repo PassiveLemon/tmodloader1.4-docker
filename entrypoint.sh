@@ -2,11 +2,9 @@
 
 VERSION=2022.07.58.8
 
-if [ -f "/server/startserver.sh" ]; then
-  cd /server/
+if [ -f "startserver.sh" ]; then
   ./startserver.sh
 else
-  cd /server/
   curl -LO https://github.com/tModLoader/tModLoader/releases/download/v${VERSION}/tModLoader.zip
   unzip tModLoader.zip
   rm -r tModLoader.zip
