@@ -34,6 +34,7 @@ Copy the folder of the modpack you want to use in the server. </br>
 Paste that into (path to server files)\contents\ModPacks\ </br>
 
 ## Worlds </br>
+If you want to transfer a world, keep reading.
 Make sure that the mods used on the world are the same as the ones in your modpack
 
 Go to C:\Users\(your user)\Documents\My Games\Terraria\tModLoader\Worlds\ or the linux equivalent
