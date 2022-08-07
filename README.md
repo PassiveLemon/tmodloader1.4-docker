@@ -6,7 +6,7 @@ Docker stuff for a dedicated tModLoader 1.4 server </br>
 I do not know how you want your server to run so you need to make sure that it is set up how you want it. This includes your serverconfig.txt, modpack, etc. You also need to set up your server port forwarding if you haven't already. </br>
 </br>
 
-## Setting up the server files </br>
+## Setting up main server files </br>
 Depending on your host, find a suitable place to store your server files. Make sure it is safe and accessible. For example: C:\TerrariaServer\ or a Linux equivalent. </br>
 
 Clone/download the git to your place of choice. </br>
@@ -17,10 +17,10 @@ Clone/download the git to your place of choice. </br>
 
  - Docker container: Use the docker container instructions and use serverconfiglinux.txt. </br>
 
-The configs are in the contents folder. Make sure it is correctly edited or your server will not run correctly. Details about the configs are in the files. </br>
+The configs are in the contents folder. Make sure it is correctly edited or your server will not run correctly. [Details on server config.](https://github.com/tModLoader/tModLoader/wiki/Starting-a-modded-server) </br>
 </br>
 
-## Getting your modpack </br>
+## Modpack </br>
 In tModLoader on your client, enable any mods that you want to play with. You shouldn't include any client side only mods in the modpack folder for the server. Mods are included in the modpack folder. </br>
 
 Go to the mod pack section. </br>
@@ -31,9 +31,16 @@ Go to the mod pack section. </br>
 
 Copy the folder of the modpack you want to use in the server. </br>
 
-Paste that into (path to server files)\contents\ModLoader\Mods\ModPacks\ </br>
+Paste that into (path to server files)\contents\ModPacks\ </br>
 
-Once again, make sure you edit your serverconfig.txt and make sure it is correct! </br>
+## Worlds </br>
+Make sure that the mods used on the world are the same as the ones in your modpack
+
+Go to C:\Users\(your user)\Documents\My Games\Terraria\tModLoader\Worlds\ or the linux equivalent
+
+Copy the files to (path to server files)\contents\Worlds\
+
+Once again, make sure you edit your serverconfig.txt and make sure it is correct! [Details on server config.](https://github.com/tModLoader/tModLoader/wiki/Starting-a-modded-server)</br>
 </br>
 
 ## Docker container </br>
