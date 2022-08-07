@@ -52,7 +52,7 @@ docker run -d --name tModLoader1.4 -p 7777:7777 -v (path to server files):/serve
 </br>
 
 ## The end
-Assuming you did everything correctly, your container should automatically start running your server. You can check this out under the logs in the docker client. You will have to restart for your server configs to take effect. </br>
+Assuming you did everything correctly, your container should automatically start running and downloading your server. It will then prompt you to add your modpack. </br>
 
 Some mods might have issues with the server when it starts up. This is rare but it happens and I can not do anything about this so you will have to remove that mod or find a work around yourself. </br>
 
