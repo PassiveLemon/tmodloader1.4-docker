@@ -2,7 +2,7 @@
 
 VERSION=2022.07.58.8
 
-if [ -f "startserver.sh" ]; then
+if [ -d "Libararies/" ] && [ -f "startserver.sh" ]; then
   ./startserver.sh
 else
   curl -LO https://github.com/tModLoader/tModLoader/releases/download/v${VERSION}/tModLoader.zip
