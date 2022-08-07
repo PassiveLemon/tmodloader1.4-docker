@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 RUN apt update -y &&\
     apt upgrade -y &&\
-    apt install wget curl libicu-dev git unzip -y &&\
+    apt install wget curl libicu-dev git unzip mono-complete -y &&\
     mkdir /server/
 
 COPY entrypoint.sh /

@@ -1,1 +1,1 @@
-.\start-tModLoaderServer.bat -config .\contents\serverconfigwindows.txt
+call start-tModLoaderServer.bat -config contents\serverconfigwindows.txt
