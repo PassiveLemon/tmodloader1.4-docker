@@ -3,7 +3,7 @@
 SET VERSION=2022.07.58.8
 
 if exist "startserver.bat" (
-call startserver.bat
+	call startserver.bat
 ) else (
 	curl -LO "https://github.com/tModLoader/tModLoader/releases/download/v%VERSION%/tModLoader.zip"
 	tar -xf tModLoader.zip
