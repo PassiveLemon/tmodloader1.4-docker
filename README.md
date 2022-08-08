@@ -7,11 +7,7 @@ I do not know how you want your server to run so you need to make sure that it i
 </br>
 
 ## Setting up main server files </br>
-Depending on your host, find a suitable place to store your server files. Make sure it is safe and accessible. For example: C:\TerrariaServer\ or a Linux equivalent. </br>
-
-Clone/download the git to your place of choice. </br>
-
- - Windows server host: Run entrypoint.bat and edit serverconfigwindows.txt. </br>
+Depending on your host, find a suitable place to store your server files. Make sure it is safe and accessible. For example: .../appdata/tmodloader/ or an equivalent. </br>
 
  - Linux server host without a docker container: Run entrypoint.sh and edit serverconfiglinux.txt. </br>
 
@@ -49,7 +45,7 @@ Run: </br>
 ```
 docker run -d --name tModLoader1.4 -p 7777:7777 -v (path to server files):/server passivelemon/tmodloader1.4-docker:2022.07.58.8
 ```
- - (path to server files) Is the folder that holds the servers contents. This should be the place you chose from the very start. Start from the root of your system and go all the way to that folder (ex: C:\Users\JohnDoe\tModLoaderServer\). You can edit any of these arguments to suit you. </br>
+ - (path to server files) Is the folder that holds the servers contents. This should be the place you chose from the very start. Start from the root of your system and go all the way to that folder (ex: .../appdata/tmodloader/). You can edit any of these arguments to suit you. </br>
 </br>
 
 ## The end
