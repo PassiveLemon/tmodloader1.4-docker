@@ -6,9 +6,9 @@
 # Vanilla
 autocreate=2
 difficulty=1
-worldpath=contents/Worlds/
+worldpath=Worlds/
 worldname=<name of world>
-world=contents/Worlds/<name of world>.wld
+world=Worlds/<name of world>.wld
 password=123
 maxplayers=8
 port=7777
