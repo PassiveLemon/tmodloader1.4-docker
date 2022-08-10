@@ -6,10 +6,17 @@ Docker stuff for a dedicated tModLoader 1.4 server </br>
 I do not know how you want your server to run so you need to make sure that it is set up how you want it. This includes your serverconfig.txt, modpack, worlds, and port forwarding. </br>
 </br>
 
+## Docker container </br>
+```
+docker run -d --name tModLoader1.4 -p 7777:7777 -v (path to server files):/server passivelemon/tmodloader1.4-docker:2022.07.58.8
+```
+ - (path to server files) Is the folder that holds the servers contents. This should be the place you choose in the next section. Start from the root of your system and go all the way to that folder (ex: C:\Users\JohnDoe\tModLoaderServer\). You can edit any of these arguments to suit you. </br>
+</br>
+
 ## Setting up main server files </br>
 Depending on your host, find a suitable place to store your server files. Make sure it is safe and accessible. For example: C:\TerrariaServer\ or a Linux equivalent. </br>
 
-Clone/download the git to your place of choice. </br>
+Download the zip of the version you want to your place of choice. </br>
 
 Run entrypoint.sh. If you are using the Docker container, the entrypoint.sh will be automatically run upon start. This will download the tModLoader server files and the files in this repo. It will then ask you to add your modpack. Read the next section for help with getting the modpack. You can also add any worlds that you want. Read the following section for help with that. </br>
 
@@ -36,14 +43,6 @@ Assuming a windows host:
 Go to C:\Users\(your user)\Documents\My Games\Terraria\tModLoader\Worlds\ or the Linux equivalent </br>
 
 Copy the files of the world of your choice to (path to server files)\contents\Worlds\ </br>
-</br>
-
-## Docker container </br>
-Run: </br>
-```
-docker run -d --name tModLoader1.4 -p 7777:7777 -v (path to server files):/server passivelemon/tmodloader1.4-docker:2022.07.58.8
-```
- - (path to server files) Is the folder that holds the servers contents. This should be the place you chose from the very start. Start from the root of your system and go all the way to that folder (ex: C:\Users\JohnDoe\tModLoaderServer\). You can edit any of these arguments to suit you. </br>
 </br>
 
 ## Other stuff </br>
