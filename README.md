@@ -3,7 +3,7 @@ Docker stuff for a dedicated tModLoader 1.4 server </br>
 
 #### This will download the required server files automaticallly. </br>
 
-I do not know how you want your server to run so you need to make sure that it is set up how you want it. This includes your serverconfig.txt, modpack, worlds, and portforwarding. </br>
+I do not know how you want your server to run so you need to make sure that it is set up how you want it. This includes your serverconfig.txt, modpack, worlds, and port forwarding. </br>
 </br>
 
 ## Setting up main server files </br>
