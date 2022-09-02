@@ -24,6 +24,6 @@ else
     chmod +x start-tModLoaderServer.sh
     echo "Server setup complete"
   fi
-  echo "No modpack detected. Add your modpack to ModPacks/ and restart."
+  echo "No modpack detected. Add your modpack to ModPacks/ and restart. Don't forget to edit your serverconfig.txt"
   exit
 fi
