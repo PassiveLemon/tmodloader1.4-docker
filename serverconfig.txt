@@ -1,0 +1,26 @@
+# CHANGE THESE
+# <name of world> Will set the name of the world when automatically generated and which world to load when started.
+worldname=<name of world>
+world=Worlds/<name of world>.wld
+
+# <modpack name> Is just the name of the modpack you copy to your server directory. Make sure it is correctly named.
+modpath=/server/ModPacks/<modpack name>/Mods/
+modpack=/server/ModPacks/<modpack name>/Mods/enabled.json
+
+# These settings can be changed. Uncomment a line to enable. Details are at https://terraria.wiki.gg/wiki/Server#Server_config_file
+autocreate=2
+#seed=
+difficulty=0
+maxplayers=8
+port=7777
+#password=
+#motd=
+#banlist=
+#secure=1
+language=en-US
+#upnp=1
+npcstream=15
+priority=1
+
+# DONT CHANGE THIS
+worldpath=Worlds/
