@@ -51,7 +51,7 @@ Copy the files of the world of your choice to (path to server files)/Worlds/ </b
 [Refer here for port forwarding](https://terraria.fandom.com/wiki/Guide:Setting_up_a_Terraria_server#PF) </br>
 
 ## The end </br>
-Assuming you did everything correctly, your server should automatically run when started. </br>
+Assuming you did everything correctly, your server should automatically run when started. You will be prompted to add your modpack. After this, it will always start loading the server upon startup. </br>
 
 Some mods might have issues with the server when it starts up. This is rare but it happens and I can not do anything about this so you will have to remove that mod or find a work around yourself. </br>
 
