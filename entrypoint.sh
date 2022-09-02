@@ -11,7 +11,9 @@ else
     unzip -o tModLoader.zip
     rm -r tModLoader.zip
 
-    curl -LO https://github.com/PassiveLemon/tmodloader1.4-docker/releases/download/${VERSION}/tmodloader1.4-docker-master.zip
+    #curl -LO https://github.com/PassiveLemon/tmodloader1.4-docker/releases/download/${VERSION}/tmodloader1.4-docker-master.zip
+    # for testing vvvv
+    git clone --single-branch --branch dev https://github.com/PassiveLemon/tmodloader1.4-docker
     unzip -o tmodloader1.4-docker-master.zip
     rm -r tmodloader1.4-docker-master.zip
     mkdir ModPacks/
