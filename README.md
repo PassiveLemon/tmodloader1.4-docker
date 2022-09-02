@@ -1,14 +1,16 @@
 # tmodloader1.4-docker </br>
 Docker stuff for a dedicated tModLoader 1.4 server </br>
 
-#### This will download the required server files automaticallly. </br>
+I will update this with major stable releases. </br>
+
+#### This will download the required server files automatically. </br>
 
 I do not know how you want your server to run so you need to make sure that it is set up how you want it. This includes your serverconfig.txt, modpack, worlds, and port forwarding. </br>
 </br>
 
 ## Docker container </br>
 ```
-docker run -d --name tModLoader1.4 -p 7777:7777 -v (path to server files):/server passivelemon/tmodloader1.4-docker:2022.07.58.8
+docker run -d --name tModLoader1.4 -p 7777:7777 -v (path to server files):/server passivelemon/tmodloader1.4-docker:2022.08.54.3
 ```
  - (path to server files) Is the folder that holds the servers contents. This should be the place you choose in the next section. Start from the root of your system and go all the way to that folder (ex: C:\Users\JohnDoe\tModLoaderServer\). You can edit any of these arguments to suit you. </br>
 </br>
