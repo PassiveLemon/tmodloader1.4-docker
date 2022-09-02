@@ -17,5 +17,5 @@ priority=1
 worldname=<name of world>
 world=Worlds/<name of world>.wld
 
-#modpath=ModPacks/<modpack name>/Mods/
+modpath=ModPacks/<modpack name>/Mods/
 modpack=ModPacks/<modpack name>/Mods/enabled.json
