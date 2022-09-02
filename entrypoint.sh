@@ -15,6 +15,7 @@ else
     # for testing vvvv
     git clone --single-branch --branch dev https://github.com/PassiveLemon/tmodloader1.4-docker
     cp -r tmodloader1.4-docker/* /server/
+    rm -r tmodloader1.4-docker/
     #unzip -o tmodloader1.4-docker-master.zip
     #rm -r tmodloader1.4-docker-master.zip
     mkdir ModPacks/
