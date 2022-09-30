@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-VERSION=2022.08.54.4
+VERSION=2022.08.54.6
 
 if [ -e ModPacks/*/Mods/enabled.json ]; then
-  ./startserver.sh
+  ./start-tModLoaderServer.sh -config serverconfig.txt
 else
   if [ ! -d "Libraries/" ]; then
     echo "No server files detected. Installing..."
@@ -16,7 +16,6 @@ else
     rm -r tmodloader1.4-docker-master.zip
     mkdir ModPacks/
     mkdir Worlds/
-    chmod +x startserver.sh
     chmod +x start-tModLoaderServer.sh
     echo "Server setup complete"
   fi
