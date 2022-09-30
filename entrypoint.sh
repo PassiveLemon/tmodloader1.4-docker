@@ -16,7 +16,6 @@ else
     rm -r tmodloader1.4-docker-master.zip
     mkdir ModPacks/
     mkdir Worlds/
-    chmod +x startserver.sh
     chmod +x start-tModLoaderServer.sh
     echo "Server setup complete"
   fi
