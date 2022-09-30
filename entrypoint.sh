@@ -3,7 +3,7 @@
 VERSION=2022.08.54.6
 
 if [ -e ModPacks/*/Mods/enabled.json ]; then
-  ./startserver.sh
+  ./start-tModLoaderServer.sh -config serverconfig.txt
 else
   if [ ! -d "Libraries/" ]; then
     echo "No server files detected. Installing..."
