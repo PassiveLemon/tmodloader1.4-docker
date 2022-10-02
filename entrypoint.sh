@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION=2022.08.54.6
+VERSION=2022.09.47.4
 
 if [ -e ModPacks/*/Mods/enabled.json ]; then
   ./start-tModLoaderServer.sh -config serverconfig.txt
