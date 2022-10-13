@@ -13,13 +13,13 @@ Depending on your host, find a suitable place to store your server files. Make s
 
 ### Docker container </br>
 ```
-docker run -d --name tModLoader1.4 -p 7777:7777 -v (path to server files):/server passivelemon/tmodloader1.4-docker:2022.09.47.4
+docker run -d --name tModLoader1.4 -p 7777:7777 -v (path to server files):/server passivelemon/tmodloader1.4-docker:2022.09.47.7
 ```
  - `-d` will run the container in the background.
  - `--name tModLoader1.4` will set the name of the container to the following word. You can change this to whatever you want.
  - `-p 7777:7777` will open port 7777 which is used by the server. If you use a different port for your server in your serverconfig, change this.
  - `(path to server files):/server` is the folder that holds the servers contents. This should be the place you just chose.
- - `passivelemon/tmodloader1.4-docker:2022.09.47.4` is my repository on DockerHub. If you want a different version, change the numbers at the end.
+ - `passivelemon/tmodloader1.4-docker:2022.09.47.7` is my repository on DockerHub. If you want a different version, change the numbers at the end.
 </br>
 
 The entrypoint.sh will be automatically run upon start. This will download the tModLoader server files and the files in this repo. It will then ask you to add your modpack. Read the next section for help with getting the modpack. You can also add any worlds that you want. Read the following section for help with that. </br>
