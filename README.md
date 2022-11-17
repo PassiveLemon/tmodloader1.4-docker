@@ -13,7 +13,7 @@ Depending on your host, find a suitable place to store your server files. Make s
 
 ### Docker container </br>
 ```
-docker run -d --name tModLoader1.4 -p 7777:7777 -v (path to server files):/server passivelemon/tmodloader1.4-docker:2022.09.47.13
+docker run -d --name tModLoader1.4 -p 7777:7777 -v (path to server files):/server passivelemon/tmodloader1.4-docker:2022.09.47.14
 ```
  - `-d` will run the container in the background.
  - `--name tModLoader1.4` will set the name of the container to the following word. You can change this to whatever you want.
