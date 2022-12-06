@@ -1,4 +1,12 @@
 # tmodloader1.4-docker </br>
+
+[![Repo](https://img.shields.io/badge/Docker-Repo-007EC6?labelColor-555555&color-007EC6&logo=docker&logoColor=fff&style=flat-square)](https://hub.docker.com/repository/docker/passivelemon/tmodloader1.4-docker)
+![Version](https://img.shields.io/docker/v/passivelemon/tmodloader1.4-docker/latest?labelColor-555555&color-007EC6&style=flat-square)
+![Size](https://img.shields.io/docker/image-size/passivelemon/tmodloader1.4-docker/latest?sort=semver&labelColor-555555&color-007EC6&style=flat-square)
+![Pulls](https://img.shields.io/docker/pulls/passivelemon/tmodloader1.4-docker?labelColor-555555&color-007EC6&style=flat-square)
+![Stars](https://img.shields.io/github/stars/passivelemon/tmodloader1.4-docker?labelColor-555555&color-007EC6&style=flat-square)
+![Forks](https://img.shields.io/github/forks/passivelemon/tmodloader1.4-docker?labelColor-555555&color-007EC6&style=flat-square)
+
 Docker stuff for a dedicated tModLoader 1.4 server </br>
 
 I will update this with major stable releases. </br>
