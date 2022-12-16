@@ -25,3 +25,4 @@ else
   echo "|| No modpack detected. Add your modpack to ModPacks/ and restart. Don't forget to edit your serverconfig.txt if you have not already. ||"
   exit
 fi
+exit
