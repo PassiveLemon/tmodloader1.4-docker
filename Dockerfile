@@ -1,8 +1,8 @@
-FROM ubuntu:latest
+FROM alpine:latest
 
-RUN apt update -y &&\
-    apt upgrade -y &&\
-    apt install curl libicu-dev git unzip -y &&\
+RUN apk update &&\
+    apk upgrade &&\
+    apk add curl git unzip bash icu-dev &&\
     mkdir /server/
 
 COPY entrypoint.sh /
