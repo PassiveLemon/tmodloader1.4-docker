@@ -1,17 +1,27 @@
 #!/usr/bin/env bash
 
-VERSION=2022.09.47.16
+# $TMLVERSION is passed down from Dockerfile
+tmlversionlatest=https://github.com/tModLoader/tModLoader/releases/latest/download/tModLoader.zip
+tmlversiontag=https://github.com/tModLoader/tModLoader/releases/download/v${TMLVERSION}/tModLoader.zip
+
+if [ "${TMLVERSION}" = "latest" ]; then
+  downloadversion=${tmlversionlatest}
+else
+  downloadversion=${tmlversiontag}
+fi
+
+echo "|| TML version is ${TMLVERSION} ||"
 
 if [ ! -d "Libraries/" ]; then
   echo "|| No server files detected. Installing... ||"
-  curl -LO https://github.com/tModLoader/tModLoader/releases/download/v${VERSION}/tModLoader.zip
+  curl -LO ${downloadversion}
   unzip -o tModLoader.zip
   rm -r tModLoader.zip
 
-  curl -LO https://github.com/PassiveLemon/tmodloader1.4-docker/archive/refs/tags/${VERSION}.zip
-  unzip -o ${VERSION}.zip
-  cp -r tmodloader1.4-docker-${VERSION}/{entrypoint.sh,serverconfig.txt,start-tModLoaderServer.sh} ./
-  rm -r tmodloader1.4-docker-${VERSION}/ ${VERSION}.zip
+  curl -LO https://github.com/PassiveLemon/tmodloader1.4-docker/releases/latest/download/tmodloader1.4-docker.zip
+  unzip -o tmodloader1.4-docker.zip -d ./tmodloader1.4-docker
+  cp -r tmodloader1.4-docker/{entrypoint.sh,serverconfig.txt} ./
+  rm -r tmodloader1.4-docker tmodloader1.4-docker.zip
 
   mkdir ModPacks/
   mkdir Worlds/
@@ -19,10 +29,13 @@ if [ ! -d "Libraries/" ]; then
   echo "|| Server setup complete ||"
 fi
 
-if [ -e ModPacks/*/Mods/enabled.json ]; then
-  ./start-tModLoaderServer.sh -config serverconfig.txt
-else
-  echo "|| No modpack detected. Add your modpack to ModPacks/ and restart. Don't forget to edit your serverconfig.txt if you have not already. ||"
-  exit
-fi
+echo "|| Starting server... ||"
+for modpack in ModPacks/*/; do
+  if [ -e "$modpack/Mods/enabled.json" ]; then
+    ./start-tModLoaderServer.sh -config serverconfig.txt
+  else
+    echo "|| No modpack detected. Add your modpack to ModPacks/ and restart. Don't forget to edit your serverconfig.txt if you have not already. ||"
+    exit
+  fi
+done
 exit
