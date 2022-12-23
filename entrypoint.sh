@@ -4,13 +4,12 @@
 tmlversionlatest=https://github.com/tModLoader/tModLoader/releases/latest/download/tModLoader.zip
 tmlversiontag=https://github.com/tModLoader/tModLoader/releases/download/v${TMLVERSION}/tModLoader.zip
 
+echo "|| TML version is ${TMLVERSION} ||"
 if [ "${TMLVERSION}" = "latest" ]; then
   downloadversion=${tmlversionlatest}
 else
   downloadversion=${tmlversiontag}
 fi
-
-echo "|| TML version is ${TMLVERSION} ||"
 
 if [ ! -d "Libraries/" ]; then
   echo "|| No server files detected. Installing... ||"
@@ -29,9 +28,9 @@ if [ ! -d "Libraries/" ]; then
   echo "|| Server setup complete ||"
 fi
 
-echo "|| Starting server... ||"
 for modpack in ModPacks/*/; do
   if [ -e "$modpack/Mods/enabled.json" ]; then
+    echo "|| Starting server... ||"
     ./start-tModLoaderServer.sh -config serverconfig.txt
   else
     echo "|| No modpack detected. Add your modpack to ModPacks/ and restart. Don't forget to edit your serverconfig.txt if you have not already. ||"
