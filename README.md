@@ -40,7 +40,7 @@ Idealy, you shouldn't include any client side only mods in the modpack folder fo
 
 4. "Open Mod Pack folder" </br>
 
-5. Copy the folder of the modpack you want to use in the server and paste that into (path to server files)/ModPacks/ </br>
+5. Copy the folder of the modpack you want to use in the server and paste that into `(path to server files)/ModPacks/` </br>
 
 # Worlds </br>
 This is not necessary if you plan to start from a new world however you might want to bring an already existing world into the server. </br>
@@ -54,17 +54,17 @@ Make sure that the mods used on the world are the same as the ones in your modpa
 ## Port forwarding </br>
 Unless you have some special case, you will need to port forward. The general idea of port forwarding is when a client sends a request to the server (with a specific port), a properly port forwarded router will allow the request to go through and to the specified host. Terraria uses 7777 by default but you can change this in your config file. </br>
 
-1. Head to your router web interface by typing your gateway IP into your router. (If you do not know this, you should probably figure it out.) It might be 192.168.1.1 or 172.1.0.1 or something of the likes. This will vary depending on how your network is setup.
+1. Head to your router web interface by typing your gateway IP into your router. (If you do not know this, you should probably figure it out.) It might be `192.168.1.1` or `172.1.0.1` or something of the likes. This will vary depending on how your network is setup.
 
 2. Find the port forwarding section. Your router management software is probably going to be different but theres a good chance that its just called "port forwarding" or under a "NAT" tab or something of the likes. </br>
 EX: For PFsense, it is under NAT and is called Port Forwarding. Your inputs may also look a little different. Please consult your software manufactuerers manual for guidance if you do not know what you are doing. </br>
 
 3. Set the external or incoming port. This is the port that players will type when they try to join your server. </br>
 
-4. Set the internal or outgoing port. This is the port that will be used by Docker. This is the first part of the `7777:7777`. </br>
+4. Set the internal or outgoing port. This is the port that will be used by Docker. This is the first part of the `-p 7777:7777`. </br>
 The second part is the container port. This is what you put into your server config (7777 by default). </br>
 
-5. Set your destination IP. This will be the IP of your server/host. There are many ways to find it. Go to your terminal: Windows is `ipconfig`. Most Linux use `ip a` or a similar command. Look for your interface, whether it is wifi or wired, and find your IPV4 address. It might look like 192.168.1.XXX or 172.1.0.XXX. Again, will probably be different. </br>
+5. Set your destination IP. This will be the IP of your server/host. There are many ways to find it. Go to your terminal: Windows is `ipconfig`. Most Linux use `ip a` or a similar command. Look for your interface, whether it is wifi or wired, and find your IPV4 address. It might look like `192.168.1.XXX` or `172.1.0.XXX`. Again, will probably be different. </br>
     - <b>NOTE:</b> Your server/host IP might eventually change. If this happens, your port forwarding will no longer work. You will need to set a static IP address. Research how to do this. </br>
 
 [More info on the Terraria Wiki](https://terraria.fandom.com/wiki/Guide:Setting_up_a_Terraria_server#PF) </br>
