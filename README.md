@@ -20,7 +20,7 @@ docker run -d --name (container name) -p 7777:7777 -v (path to server files):/se
  - `--name (container name)` will set the name of the container to the following word. You can change this to whatever you want.
  - `-p 7777:7777` is the default port used by the server. This translates from your host 7777 into the container 7777. If you use a different port for your server in your serverconfig, change this. Make sure your serverconfig.txt accurately represents this.
  - `-v (path to server files):/server` is the folder that holds the servers contents. This should be the place you just chose.
- - `-e TMLVERSION=(tml version)` is the version of tModLoader that you want to run. Only works if it is written like XXXX.XX.XX.XX. Go to the [tModLoader github](https://github.com/tModLoader/tModLoader/releases) page and look at the versions. I don't currently have support for "latest" as an option so you will need to add that yourself.
+ - `-e TMLVERSION=(tml version)` is the version of tModLoader that you want to run. Only works if it is written like XXXX.XX.XX.XX. Go to the [tModLoader github](https://github.com/tModLoader/tModLoader/releases) page and look at the versions. You may also just use "latest" and it will always automatically use the latest published version when creating the server. It wont update the server though.
  - `passivelemon/tmodloader1.4-docker:latest` is the repository on Docker hub. By default, it is the latest version that I have published. </br>
 
 #### Example:
