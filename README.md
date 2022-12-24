@@ -7,27 +7,35 @@
 
 #### This will download the required server files automatically. </br>
 
-I do not know how you want your server to run so you need to make sure that it is set up how you want it. This includes your serverconfig.txt, modpack, worlds, and port forwarding. </br>
-
 ## Setting up main server files </br>
-Depending on your host, find a suitable place to store your server files. Make sure it is empty, safe, and accessible. For example: On Windows, something like `C:\TerrariaServer\` or a Linux equivalent like `/opt/TerrariaServer/`. This will be important later. </br>
+Depending on your host, find a suitable place to store your server files. Make sure it is empty, safe, and accessible. For example: On Windows, something like `C:\TerrariaServer\` or a Linux equivalent like `/opt/TerrariaServer/`. Make 2 directories called ModPacks, and Worlds. Makes sure they are spelled exactly. This will be important later. </br>
 
 ### Docker container </br>
 ```
-docker run -d --name (container name) -p 7777:7777 -v (path to server files):/server -e TMLVERSION=(tml version) passivelemon/tmodloader1.4-docker:latest
+docker run -d --name (container name) -p 7777:7777 -v (path to config files):/config/ -e TMLVERSION=(tml version) passivelemon/tmodloader1.4-docker:latest
 ```
- - `-d` will run the container in the background.
- - `--name (container name)` will set the name of the container to the following word. You can change this to whatever you want.
- - `-p 7777:7777` is the default port used by the server. This translates from your host 7777 into the container 7777. If you use a different port for your server in your serverconfig, change this. Make sure your serverconfig.txt accurately represents this.
- - `-v (path to server files):/server` is the folder that holds the servers contents. This should be the place you just chose.
- - `-e TMLVERSION=(tml version)` is the version of tModLoader that you want to run. Only works if it is written like XXXX.XX.XX.XX. Go to the [tModLoader github](https://github.com/tModLoader/tModLoader/releases) page and look at the versions. I don't currently have support for "latest" as an option so you will need to add that yourself.
- - `passivelemon/tmodloader1.4-docker:latest` is the repository on Docker hub. By default, it is the latest version that I have published. </br>
+| Operator | Details |
+|:-|:-|
+| `-d` | will run the container in the background. |
+| `--name (container name)` | Sets the name of the container to the following word. You can change this to whatever you want. |
+| `-p 7777:7777` | The default port used by the server. This translates from your host 7777 into the container 7777. If you use a different port for your server in your serverconfig, change this. Make sure your serverconfig.txt accurately represents this. |
+| `-v (path to config files):/config` | Sets the folder that holds the configs like your modpack, worlds, and serverconfig.txt. This should be the place you just chose. <br><b>THE SERVER WILL NOT RUN IF YOU DO NOT HAVE THIS</b>.</br> |
+| `-e TMLVERSION=(tml version)` | Sets the version of tModLoader that you want to run. "latest" is a supported tag and it will default to "latest" if the variable is not specified. Go to the [tModLoader github](https://github.com/tModLoader/tModLoader/releases) page and look at the versions. You can use "latest" and it will always download the latest version when building the container. |
+| `passivelemon/tmodloader1.4-docker:latest` | The repository on Docker hub. By default, it is the latest version that I have published. |
 
 #### Example:
 ```
-docker run -d --name tModLoader1.4 -p 7777:7777 -v C:\DockerContainers\tModLoaderServer\:/server -e TMLVERSION=2022.09.47.13 passivelemon/tmodloader1.4-docker:latest
+docker run -d --name tmodloader1.4 -p 7777:7777/tcp -v C:\DockerContainers\tModLoaderServer\:/config/ -v C:\DockerContainers\tModLoaderServer\Logs\:/server/tModLoader-Logs/ -e TMLVERSION=2022.09.47.13 passivelemon/tmodloader1.4-docker:latest
 ```
-The entrypoint.sh script is attached to the Dockerfile and will be automatically run upon start. This will download the tModLoader server files and the files in this repo. It will then ask you to add your modpack, of which you can also add any worlds you want, and to modify the server config. Keep reading for help on those. </br>
+| Operator | Details |
+|:-|:-|
+| `-d` | Runs the container in the background |
+| `--name tmodloader1.4` | Sets the name of the container to `tmodloader1.4` |
+| `-p 7777:7777/tcp` | Sets the external and internal port to 7777 over TCP (Docker defaults to TCP if nothing else is specified) |
+| `-v C:\DockerContainers\tModLoaderServer\:/config/` | Mounts the config directory from the host into the container. <br><b>THE SERVER WILL NOT RUN IF YOU DO NOT HAVE THIS</b>.</br> |
+| `-v C:\DockerContainers\tModLoaderServer\Logs\:/server/tModLoader-Logs/` | Mounts a log directory on the host to the server log directory. This allows the user to see the logs generated by the server very easily. This can be done to any directory but you probably wont need to. |
+| `-e TMLVERSION=2022.09.47.13` | Sets the container to download tModLoader v2022.09.47.13. This can be changed. Go to the [tModLoader github](https://github.com/tModLoader/tModLoader/releases) page and look at the versions. |
+| `passivelemon/tmodloader1.4-docker:latest` | Is the repository on Docker hub. By default, it is the latest version that I have published. |
 
 # Modpack </br>
 Idealy, you shouldn't include any client side only mods in the modpack folder for the server. Client side mods only affect the client (player) meaning they add zero new functionality to the game. Includes things like different textures, shaders, RPC, etc. Nothing bad should happen if you do but it's just best practice. Mods are included in the modpack folder. </br>
@@ -40,7 +48,9 @@ Idealy, you shouldn't include any client side only mods in the modpack folder fo
 
 4. "Open Mod Pack folder" </br>
 
-5. Copy the folder of the modpack you want to use in the server and paste that into `(path to server files)/ModPacks/` </br>
+5. Copy the folder of the modpack you want to use in the server and paste that into `(path to config files)/ModPacks/` </br>
+
+Make sure the modpack has an `enabled.json` with the mods you want or else the server will not start. </br>
 
 # Worlds </br>
 This is not necessary if you plan to start from a new world however you might want to bring an already existing world into the server. </br>
@@ -48,9 +58,18 @@ Make sure that the mods used on the world are the same as the ones in your modpa
 
 1. Go to `C:\Users\(your user)\Documents\My Games\Terraria\tModLoader\Worlds\` or the Linux equivalent </br>
 
-2. Copy the files of the world of your choice to `(path to server files)/Worlds/`. The world files look like `.wld` and `.twld`. </br>
+2. Copy the files of the world of your choice to `(path to config files)/Worlds/`. The world files look like `.wld` and `.twld`. </br>
 
 # Configuration </br>
+Feel free to open an issue and ask me for help! </br>
+
+## Server Config </br>
+Make a file called `serverconfig.txt`, put it into `(path to config files)/` and fill it with the template provided in this repository. </br>
+
+The `serverconfig.txt` file should have all of the needed information for the server to automatically start. I have provided some basic presets but there is still information that YOU WILL NEED TO CHANGE. It is already listed in the file but you will need to change the line for the name of your modpack and, especially if you added a world, the name of the world. You can also add any other settings that you may want. </br>
+
+[Server configuration details on the Terraria Wiki](https://terraria.fandom.com/wiki/Server#Server_config_file) </br>
+
 ## Port forwarding </br>
 Unless you have some special case, you will need to port forward. The general idea of port forwarding is when a client sends a request to the server (with a specific port), a properly port forwarded router will allow the request to go through and to the specified host. Terraria uses 7777 by default but you can change this in your config file. </br>
 
@@ -69,10 +88,16 @@ The second part is the container port. This is what you put into your server con
 
 [More info on the Terraria Wiki](https://terraria.fandom.com/wiki/Guide:Setting_up_a_Terraria_server#PF) </br>
 
-## Server Config </br>
-The `serverconfig.txt` file should have all of the needed information for the server to automatically start. I have provided some basic presets but there is still information that YOU WILL NEED TO CHANGE. It is already in the file but you will need to change the line for the name of your modpack and, especially if you added a world, the name of the world. You can also add any other settings that you may want. </br>
-
-[Server configuration details on the Terraria Wiki](https://terraria.fandom.com/wiki/Server#Server_config_file) </br>
+## Reference </br>
+Your config directory should look something like:
+```
+config-directory\       - This gets mounted to /config/ in the container
+    Logs\               - This is optional. Make sure to mount it.
+    ModPacks\           - Default folder needed by the server
+        my-modpack\     - The name of your modpack
+    Worlds\             - Default folder needed by the server
+    serverconfig.txt    - config file needed by the server
+```
 
 ## Other Links </br>
 
