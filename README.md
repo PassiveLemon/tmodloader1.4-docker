@@ -14,14 +14,14 @@ Depending on your host, find a suitable place to store your server files. Make s
 ```
 docker run -d --name (container name) -p 7777:7777 -v (path to config files):/config/ -e TMLVERSION=(tml version) passivelemon/tmodloader1.4-docker:latest
 ```
-| Operator | Details |
-|:-|:-|
-| `-d` | will run the container in the background. |
-| `--name (container name)` | Sets the name of the container to the following word. You can change this to whatever you want. |
-| `-p 7777:7777` | The default port used by the server. This translates from your host 7777 into the container 7777. If you use a different port for your server in your serverconfig, change this. Make sure your serverconfig.txt accurately represents this. |
-| `-v (path to config files):/config` | Sets the folder that holds the configs like your modpack, worlds, and serverconfig.txt. This should be the place you just chose. <br><b>THE SERVER WILL NOT RUN IF YOU DO NOT HAVE THIS</b>.</br> |
-| `-e TMLVERSION=(tml version)` | Sets the version of tModLoader that you want to run. "latest" is a supported tag and it will default to "latest" if the variable is not specified. Go to the [tModLoader github](https://github.com/tModLoader/tModLoader/releases) page and look at the versions. You can use "latest" and it will always download the latest version when building the container. |
-| `passivelemon/tmodloader1.4-docker:latest` | The repository on Docker hub. By default, it is the latest version that I have published. |
+| Operator | Need | Details |
+|:-|:-|:-|
+| `-d` | Yes | will run the container in the background. |
+| `--name (container name)` | No | Sets the name of the container to the following word. You can change this to whatever you want. |
+| `-p 7777:7777` | Yes | The default port used by the server. This translates from your host 7777 into the container 7777. If you use a different port for your server in your serverconfig, change this. Make sure your serverconfig.txt accurately represents this. |
+| `-v (path to config files):/config` | Yes | Sets the folder that holds the configs like your modpack, worlds, and serverconfig.txt. This should be the place you just chose. <br><b>THE SERVER WILL NOT RUN IF YOU DO NOT HAVE THIS</b>.</br> |
+| `-e TMLVERSION=(tml version)` | No | Sets the version of tModLoader that you want to run. "latest" is a supported tag and it will default to "latest" if the variable is not specified. Latest will automatically download the latest released tModLoader version. Go to the [tModLoader github](https://github.com/tModLoader/tModLoader/releases) page and look at the versions. |
+| `passivelemon/tmodloader1.4-docker:latest` | Yes | The repository on Docker hub. By default, it is the latest version that I have published. |
 
 #### Example:
 ```
