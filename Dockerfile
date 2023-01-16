@@ -2,7 +2,7 @@ FROM alpine:latest
 
 RUN apk update &&\
     apk upgrade &&\
-    apk add curl bash unzip icu-dev &&\
+    apk add grep curl bash unzip icu-dev &&\
     mkdir -p /server/ &&\
     mkdir -p /config/ModPacks &&\
     mkdir -p /config/Worlds

@@ -1,44 +1,43 @@
 #!/usr/bin/env bash
 
-tmlversion=${VERSION} # $VERSION is passed down from Dockerfile
-tmlurllatest=https://github.com/tModLoader/tModLoader/releases/latest/download/tModLoader.zip
-tmlurlspecific=https://github.com/tModLoader/tModLoader/releases/download/v${tmlversion}/tModLoader.zip
+# Weirdness to grab the name (in this case, also the tag) of the latest release on my github. Later used to download the tarball of that release. It is easier for me to just always upload to master and then create a release for the versions.
+tmlurldocker=$(curl -LsN https://api.github.com/repos/PassiveLemon/tmodloader1.4-docker/releases/latest | grep -Po '"tag_name": "\K\S+(?=")')
 
-# Check if a version was provided
+# Check if a version was provided.
 if [ -z "${VERSION}" ]; then
   echo "|| Version was not specified. Defaulting to latest. ||"
-  tmlversion=latest
+  tmldlversion=latest
 else
-  tmlversion=${VERSION}
+  tmldlversion=${VERSION}
 fi
 
-# Check if the version is "latest"
-if [ "${tmlversion}" = "latest" ]; then
+tmlurllatest=https://github.com/tModLoader/tModLoader/releases/latest/download/tModLoader.zip
+tmlurlspecific=https://github.com/tModLoader/tModLoader/releases/download/v${tmldlversion}/tModLoader.zip
+
+if [ "${tmldlversion}" = "latest" ]; then
   echo "|| Using the latest TML version. ||"
   download=${tmlurllatest}
 else
-  echo "|| Using TML version ${tmlversion}. ||"
+  echo "|| Using TML version ${tmldlversion}. ||"
   download=${tmlurlspecific}
 fi
 
-# Download and setup the server
 cd /server/
 if [ ! -d "/server/Libraries/" ]; then
   echo "|| Downloading server files. ||"
-  curl -LO ${download}
+  curl -L --output /server/tModLoader.zip ${download}
   unzip -o /server/tModLoader.zip
   rm -r /server/tModLoader.zip
 
-  curl -LO https://github.com/PassiveLemon/tmodloader1.4-docker/releases/latest/download/tmodloader1.4-docker.zip
-  unzip -o /server/tmodloader1.4-docker.zip -d /server/tmodloader1.4-docker
-  cp -r /server/tmodloader1.4-docker/{entrypoint.sh,serverconfig.txt} /server/
-  rm -r /server/tmodloader1.4-docker /server/tmodloader1.4-docker.zip
+  curl -L --output /server/${tmlurldocker}.tar.gz https://github.com/PassiveLemon/tmodloader1.4-docker/archive/refs/tags/${tmlurldocker}.tar.gz
+  tar -xf /server/${tmlurldocker}.tar.gz
+  cp -r /server/tmodloader1.4-docker-${tmlurldocker}/{entrypoint.sh,serverconfig.txt} /server/
+  rm -r /server/${tmlurldocker}.tar.gz
 
   chmod +x /server/start-tModLoaderServer.sh
   echo "|| Server setup completed. ||"
 fi
 
-# Check for modpack and start server if present.
 for modpack in /config/ModPacks/*/; do
   if [ -e "$modpack/Mods/enabled.json" ]; then
     echo "|| Starting server using modpack $modpack. ||"
