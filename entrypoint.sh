@@ -22,26 +22,26 @@ else
   download=${tmlurlspecific}
 fi
 
-cd /server/
-if [ ! -d "/server/Libraries/" ]; then
+cd /tmodloader/server/
+if [ ! -d "/tmodloader/server/Libraries/" ]; then
   echo "|| Downloading server files. ||"
-  curl -L --output /server/tModLoader.zip ${download}
-  unzip -o /server/tModLoader.zip
-  rm -r /server/tModLoader.zip
+  curl -L --output /tmodloader/server/tModLoader.zip ${download}
+  unzip -o /tmodloader/server/tModLoader.zip
+  rm -r /tmodloader/server/tModLoader.zip
 
-  curl -L --output /server/${tmlurldocker}.tar.gz https://github.com/PassiveLemon/tmodloader1.4-docker/archive/refs/tags/${tmlurldocker}.tar.gz
-  tar -xf /server/${tmlurldocker}.tar.gz
-  cp -r /server/tmodloader1.4-docker-${tmlurldocker}/{entrypoint.sh,serverconfig.txt} /server/
-  rm -r /server/${tmlurldocker}.tar.gz
+  curl -L --output /tmodloader/server/${tmlurldocker}.tar.gz https://github.com/PassiveLemon/tmodloader1.4-docker/archive/refs/tags/${tmlurldocker}.tar.gz
+  tar -xf /tmodloader/server/${tmlurldocker}.tar.gz
+  cp -r /tmodloader/server/tmodloader1.4-docker-${tmlurldocker}/{entrypoint.sh,serverconfig.txt} /tmodloader/server/
+  rm -r /tmodloader/server/${tmlurldocker}.tar.gz
 
-  chmod +x /server/start-tModLoaderServer.sh
+  chmod +x /tmodloader/server/start-tModLoaderServer.sh
   echo "|| Server setup completed. ||"
 fi
 
-for modpack in /config/ModPacks/*/; do
+for modpack in /tmodloader/config/ModPacks/*/; do
   if [ -e "$modpack/Mods/enabled.json" ]; then
     echo "|| Starting server using modpack $modpack. ||"
-    bash /server/start-tModLoaderServer.sh -config /config/serverconfig.txt
+    bash /tmodloader/server/start-tModLoaderServer.sh -config /tmodloaderconfig/serverconfig.txt
   else
     echo "|| No modpack was detected. Add your modpack to /config/ModPacks/ and restart. Make sure your serverconfig.txt is also setup. ||"
     exit
