@@ -44,7 +44,6 @@ for modpack in /tmodloader/config/ModPacks/*/; do
     bash /tmodloader/server/start-tModLoaderServer.sh -config /tmodloader/config/serverconfig.txt
   else
     echo "|| No modpack was detected. Add your modpack and restart. Make sure your serverconfig.txt is also setup. ||"
-    exit
   fi
 done
 exit
