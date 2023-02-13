@@ -41,9 +41,9 @@ fi
 for modpack in /tmodloader/config/ModPacks/*/; do
   if [ -e "$modpack/Mods/enabled.json" ]; then
     echo "|| Starting server using modpack $modpack. ||"
-    bash /tmodloader/server/start-tModLoaderServer.sh -config /tmodloaderconfig/serverconfig.txt
+    bash /tmodloader/server/start-tModLoaderServer.sh -config /tmodloader/config/serverconfig.txt
   else
-    echo "|| No modpack was detected. Add your modpack to /config/ModPacks/ and restart. Make sure your serverconfig.txt is also setup. ||"
+    echo "|| No modpack was detected. Add your modpack and restart. Make sure your serverconfig.txt is also setup. ||"
     exit
   fi
 done

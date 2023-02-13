@@ -1,11 +1,11 @@
 # CHANGE THESE
 # (name of world) Will set the name of the world when automatically generated and which world to load when started. Make sure these are the same.
 worldname=(name of world)
-world=/config/Worlds/(name of world).wld
+world=/tmodloader/config/Worlds/(name of world).wld
 
 # (modpack name) Is just the name of the modpack you copy to your config directory. Make sure it exactly matches the name.
-modpath=/config/ModPacks/(modpack name)/Mods/
-modpack=/config/ModPacks/(modpack name)/Mods/enabled.json
+modpath=/tmodloader/config/ModPacks/(modpack name)/Mods/
+modpack=/tmodloader/config/ModPacks/(modpack name)/Mods/enabled.json
 
 # These settings can be changed. Uncomment a line to enable. Details are at https://terraria.wiki.gg/wiki/Server#Server_config_file
 autocreate=2
@@ -23,4 +23,4 @@ npcstream=15
 priority=1
 
 # DONT CHANGE THIS
-worldpath=/config/Worlds/
+worldpath=/tmodloader/config/Worlds/
