@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 RUN apk update && apk upgrade &&\
-    apk add grep curl bash unzip icu-dev &&\
+    apk add bash grep curl unzip icu-dev &&\
     mkdir -p /tmodloader/server/ &&\
     mkdir -p /tmodloader/config/ModPacks &&\
     mkdir -p /tmodloader/config/Worlds
@@ -10,7 +10,7 @@ COPY entrypoint.sh /tmodloader/
 
 RUN chmod +x /tmodloader/entrypoint.sh
 
-ENV VERSION=""
+ENV VERSION="latest"
 
 EXPOSE 7777
 
