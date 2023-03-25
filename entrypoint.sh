@@ -20,24 +20,65 @@ if [ ! -d "/tmodloader/server/Libraries/" ]; then
   curl -L --output /tmodloader/server/tModLoader.zip ${download}
   unzip -o /tmodloader/server/tModLoader.zip
   rm -r /tmodloader/server/tModLoader.zip
-
-  curl -L --output /tmodloader/server/${tmlurldocker}.tar.gz https://github.com/PassiveLemon/tmodloader1.4-docker/archive/refs/tags/${tmlurldocker}.tar.gz
-  tar -xf /tmodloader/server/${tmlurldocker}.tar.gz
-  cp /tmodloader/server/tmodloader1.4-docker-${tmlurldocker}/entrypoint.sh /tmodloader/server/
-  cp /tmodloader/server/tmodloader1.4-docker-${tmlurldocker}/serverconfig.txt /tmodloader/server/
-  rm -r /tmodloader/server/${tmlurldocker}.tar.gz
+  rm /tmodloader/server/serverconfig.txt
 
   chmod +x /tmodloader/server/start-tModLoaderServer.sh
   echo "|| Server setup completed. ||"
 fi
 
-for modpack in /tmodloader/config/ModPacks/*/; do
-  if [ -e "${modpack}/Mods/enabled.json" ]; then
-    echo "|| Starting server using modpack ${modpack}. ||"
-    /tmodloader/server/start-tModLoaderServer.sh -config /tmodloader/config/serverconfig.txt
+# Ugly as shit
+AUTOCREATEx="-autocreate ${AUTOCREATE}"
+DIFFICULTYx="-difficulty ${DIFFICULTY}"
+BANLISTx="-banlist ${BANLIST}"
+LANGUAGEx="-language ${LANGUAGE}"
+MAXPLAYERSx="-maxplayers ${MAXPLAYERS}"
+if [ ${MODPACK} = "" ]; then
+  echo "|| Modpack name was not provided. Exiting... ||"
+  exit
+fi
+if [${MOTD} != "" ]; then
+  MOTDx="-motd \"${MOTD}\""
+fi
+NPCSTREAMx="-npcstream ${NPCSTREAM}"
+if [ ${PASSWORD} != "" ]; then
+  PASSWORDx="-password ${PASSWORD}"
+fi
+if [ ${PORT} = "" ]; then
+  echo "|| Port not set. Exiting...||"
+  exit
+fi
+PRIORITYx="-forcepriority ${PRIORITY}"
+if [ ${SEED} != "" ]; then
+  SEEDx="-seed ${SEED}"
+fi
+if [ ${UPNP} = "0" ]; then
+  UPNPx="-noupnp"
+fi
+WORLDNAMEx="-worldname ${WORLDNAME}"
+
+# Automatically set
+WORLDx="-world /tmodloader/config/Worlds/${WORLDNAME}.wld"
+MODPACKx="-modpack /tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json"
+MODPATHx="-modpath /tmodloader/config/ModPacks/${MODPACK}/Mods/"
+
+if [ ! -e "/tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json" ]; then
+  echo "|| Modpack was not detected. Exiting... ||"
+  exit
+fi
+echo "start-tModLoaderServer.sh $WORLDNAMEx $WORLDx $MODPACKx $MODPATHx $AUTOCREATEx $DIFFICULTYx $BANLISTx $LANGUAGEx $MAXPLAYERSx $MOTDx $NPCSTREAMx $PASSWORDx $PORTx $PRIORITYx $SECUREx $SEEDx $UPNPx"
+echo "|| Starting server with ${MODPACK} modpack. ||"
+if [ ${SERVERCONFIG} = "1" ]; then
+  if [ ! -e "/tmodloader/server/serverconfig.txt" ]; then
+    cp -f /tmodloader/config/serverconfig.txt /tmodloader/server/
   else
-    echo "|| No modpack was detected. Add your modpack and restart. Make sure your serverconfig.txt is also setup. ||"
+    echo "|| Serverconfig.txt was not detected. Exiting... ||"
     exit
   fi
-done
+  /tmodloader/server/start-tModLoaderServer.sh -config /tmodloader/config/serverconfig.txt
+else
+  if [ -e "/tmodloader/config/serverconfig.txt" ]; then
+    mv "/tmodloader/config/serverconfig.txt" "/tmodloader/config/serverconfig.txt.bak"
+  fi
+  /tmodloader/server/start-tModLoaderServer.sh  $WORLDNAMEx $WORLDx $MODPACKx $MODPATHx $AUTOCREATEx $DIFFICULTYx $BANLISTx $LANGUAGEx $MAXPLAYERSx $MOTDx $NPCSTREAMx $PASSWORDx $PORTx $PRIORITYx $SECUREx $SEEDx $UPNPx
+fi
 exit
