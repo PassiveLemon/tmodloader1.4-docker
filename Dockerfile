@@ -29,7 +29,6 @@ ENV SEED=""
 ENV UPNP="0"
 ENV WORLDNAME="World"
 
-
 EXPOSE ${PORT}
 
 ENTRYPOINT ["/tmodloader/entrypoint.sh"]

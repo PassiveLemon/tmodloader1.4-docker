@@ -36,7 +36,7 @@ if [ ${MODPACK} = "" ]; then
   echo "|| Modpack name was not provided. Exiting... ||"
   exit
 fi
-if [${MOTD} != "" ]; then
+if [ ${MOTD} != "" ]; then
   MOTDx="-motd \"${MOTD}\""
 fi
 NPCSTREAMx="-npcstream ${NPCSTREAM}"
@@ -79,6 +79,6 @@ else
   if [ -e "/tmodloader/config/serverconfig.txt" ]; then
     mv "/tmodloader/config/serverconfig.txt" "/tmodloader/config/serverconfig.txt.bak"
   fi
-  /tmodloader/server/start-tModLoaderServer.sh  $WORLDNAMEx $WORLDx $MODPACKx $MODPATHx $AUTOCREATEx $DIFFICULTYx $BANLISTx $LANGUAGEx $MAXPLAYERSx $MOTDx $NPCSTREAMx $PASSWORDx $PORTx $PRIORITYx $SECUREx $SEEDx $UPNPx
+  /tmodloader/server/start-tModLoaderServer.sh $WORLDNAMEx $WORLDx $MODPACKx $MODPATHx $AUTOCREATEx $DIFFICULTYx $BANLISTx $LANGUAGEx $MAXPLAYERSx $MOTDx $NPCSTREAMx $PASSWORDx $PORTx $PRIORITYx $SECUREx $SEEDx $UPNPx
 fi
 exit
