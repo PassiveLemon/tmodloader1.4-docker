@@ -1,7 +1,4 @@
-#!/bin/sh
-
-# Weirdness to grab the name (in this case, also the tag) of the latest release on my github. Later used to download the tarball of that release. It is easier for me to just always upload to master and then create a release for the versions.
-tmlurldocker=$(curl -LsN https://api.github.com/repos/PassiveLemon/tmodloader1.4-docker/releases/latest | grep -Po '"tag_name": "\K\S+(?=")')
+#!/usr/bin/env bash
 
 tmlurllatest=https://github.com/tModLoader/tModLoader/releases/latest/download/tModLoader.zip
 tmlurlspecific=https://github.com/tModLoader/tModLoader/releases/download/v${VERSION}/tModLoader.zip
@@ -26,59 +23,63 @@ if [ ! -d "/tmodloader/server/Libraries/" ]; then
   echo "|| Server setup completed. ||"
 fi
 
-# Ugly as shit
-AUTOCREATEx="-autocreate ${AUTOCREATE}"
-DIFFICULTYx="-difficulty ${DIFFICULTY}"
-BANLISTx="-banlist ${BANLIST}"
-LANGUAGEx="-language ${LANGUAGE}"
-MAXPLAYERSx="-maxplayers ${MAXPLAYERS}"
-if [ ${MODPACK} = "" ]; then
+# Define variables for config pasting later. Very crude and ugly
+AUTOCREATEx="autocreate=${AUTOCREATE}"
+DIFFICULTYx="difficulty=${DIFFICULTY}"
+BANLISTx="banlist=${BANLIST}"
+LANGUAGEx="language=${LANGUAGE}"
+MAXPLAYERSx="maxplayers=${MAXPLAYERS}"
+if [ "${MODPACK}" = "" ]; then
   echo "|| Modpack name was not provided. Exiting... ||"
   exit
 fi
-if [ ${MOTD} != "" ]; then
-  MOTDx="-motd \"${MOTD}\""
+if [ "${MOTD}" != "" ]; then
+  MOTDx="motd=${MOTD}"
 fi
-NPCSTREAMx="-npcstream ${NPCSTREAM}"
-if [ ${PASSWORD} != "" ]; then
-  PASSWORDx="-password ${PASSWORD}"
+NPCSTREAMx="npcstream=${NPCSTREAM}"
+if [ "${PASSWORD}" != "" ]; then
+  PASSWORDx="password=${PASSWORD}"
 fi
-if [ ${PORT} = "" ]; then
+if [ "${PORT}" = "" ]; then
   echo "|| Port not set. Exiting...||"
   exit
 fi
-PRIORITYx="-forcepriority ${PRIORITY}"
-if [ ${SEED} != "" ]; then
-  SEEDx="-seed ${SEED}"
+PORTx="port=${PORT}"
+PRIORITYx="priority=${PRIORITY}"
+SECUREx="secure=${SECURE}"
+if [ "${SEED}" != "" ]; then
+  SEEDx="seed=${SEED}"
 fi
-if [ ${UPNP} = "0" ]; then
-  UPNPx="-noupnp"
-fi
-WORLDNAMEx="-worldname ${WORLDNAME}"
+UPNPx="upnp=${UPNP}"
+WORLDNAMEx="worldname=${WORLDNAME}"
 
-# Automatically set
-WORLDx="-world /tmodloader/config/Worlds/${WORLDNAME}.wld"
-MODPACKx="-modpack /tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json"
-MODPATHx="-modpath /tmodloader/config/ModPacks/${MODPACK}/Mods/"
+# Automatically set variables
+WORLDx="world=/tmodloader/config/Worlds/${WORLDNAME}.wld"
+MODPACKx="modpack=/tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json"
+MODPATHx="modpath=/tmodloader/config/ModPacks/${MODPACK}/Mods/"
 
 if [ ! -e "/tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json" ]; then
   echo "|| Modpack was not detected. Exiting... ||"
   exit
 fi
-echo "start-tModLoaderServer.sh $WORLDNAMEx $WORLDx $MODPACKx $MODPATHx $AUTOCREATEx $DIFFICULTYx $BANLISTx $LANGUAGEx $MAXPLAYERSx $MOTDx $NPCSTREAMx $PASSWORDx $PORTx $PRIORITYx $SECUREx $SEEDx $UPNPx"
-echo "|| Starting server with ${MODPACK} modpack. ||"
-if [ ${SERVERCONFIG} = "1" ]; then
-  if [ ! -e "/tmodloader/server/serverconfig.txt" ]; then
-    cp -f /tmodloader/config/serverconfig.txt /tmodloader/server/
-  else
-    echo "|| Serverconfig.txt was not detected. Exiting... ||"
-    exit
+
+# Write variables to file
+cd /tmodloader/config/
+if [ ${SERVERCONFIG} = "0" ]; then
+  if [ -e /tmodloader/config/serverconfig.txt ]; then
+    rm /tmodloader/config/serverconfig.txt
   fi
-  /tmodloader/server/start-tModLoaderServer.sh -config /tmodloader/config/serverconfig.txt
-else
-  if [ -e "/tmodloader/config/serverconfig.txt" ]; then
-    mv "/tmodloader/config/serverconfig.txt" "/tmodloader/config/serverconfig.txt.bak"
-  fi
-  /tmodloader/server/start-tModLoaderServer.sh $WORLDNAMEx $WORLDx $MODPACKx $MODPATHx $AUTOCREATEx $DIFFICULTYx $BANLISTx $LANGUAGEx $MAXPLAYERSx $MOTDx $NPCSTREAMx $PASSWORDx $PORTx $PRIORITYx $SECUREx $SEEDx $UPNPx
+  for argument in $AUTOCREATEx $DIFFICULTYx $BANLISTx $LANGUAGEx $MAXPLAYERSx $MOTDx $NPCSTREAMx $PASSWORDx $PORTx $PRIORITYx $SEEDx $SECUREx $UPNPx $WORLDNAMEx $WORLDx $MODPACKx $MODPATHx; do
+    echo $argument >> serverconfig.txt
+  done
 fi
+
+# Replace server config every launch to ensure changes are set
+if [ -e /tmodloader/server/serverconfig.txt ]; then
+  rm /tmodloader/server/serverconfig.txt
+fi
+cp /tmodloader/config/serverconfig.txt /tmodloader/server/
+
+echo "|| Starting server with ${MODPACK} modpack. ||"
+/tmodloader/server/start-tModLoaderServer.sh -config /tmodloader/server/serverconfig.txt
 exit
