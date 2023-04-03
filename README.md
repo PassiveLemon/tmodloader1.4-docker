@@ -17,10 +17,6 @@ docker run -d --name (container name) -p 7777:7777 -v (path to config files):/tm
 | `-v (path to config files):/tmodloader/config` | Yes | Sets the folder that holds the configs like your modpack, worlds, and serverconfig.txt. This should be the place you just chose. <br><b>THE SERVER WILL NOT RUN IF YOU DO NOT HAVE THIS</b>.</br> |
 | `passivelemon/tmodloader1.4-docker:latest` | Yes | The repository on Docker hub. By default, it is the latest version that I have published. |
 
-### Server environment variables: </br>
-For every variable you want the server to use, add that variable to your docker run or compose with `-e (Variable name)=(Value)`. </br>
-By default, the server will not successfully run. The only required variable for minimal functionality is `MODPACK`. You can find all of the valid server variables at in the [Variables.md](/Variables.md)
-
 #### Example: </br>
 ```
 docker run -d --name tmodloader1.4 -p 7777:7777/tcp -v /opt/tModLoaderServer/:/tmodloader/config/ -v /opt/tModLoaderServer/Logs/:/tmodloader/server/tModLoader-Logs/ -e MODPACK=ultimatepack -e WORLD=superworld -e VERSION=2022.09.47.33 passivelemon/tmodloader1.4-docker:latest
