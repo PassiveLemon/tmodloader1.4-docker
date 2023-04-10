@@ -7,4 +7,4 @@
 
 Docker container for a [tModLoader](https://github.com/tModLoader/tModLoader) 1.4 dedicated server </br>
 
-Setup guide is in the Wiki. </br>
+Setup guide is in the [Wiki](https://github.com/PassiveLemon/tmodloader1.4-docker/wiki). </br>
