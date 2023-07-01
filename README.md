@@ -69,7 +69,7 @@ Ideally, you shouldn't include any client side only mods in the modpack folder f
 Make sure the modpack has an `enabled.json` with the mods you want or else the server will not start. </br>
 
 # 4. Worlds
-<b> If you want to continue on an existing world, follow this step. Otherwise, just skip it. The server will generate a new world automatically.</b></br>
+<b> If you want to continue on an existing world, follow this step. Otherwise, just skip it. The server will generate a new world automatically.</b>
 
 If you provide a world file and correctly set the `WORLDNAME` variable, it will use the existing world. Make sure that the mods used on the world are the same as the ones in your modpack or else you may risk some world corruption. </br>
 
@@ -77,7 +77,7 @@ If you provide a world file and correctly set the `WORLDNAME` variable, it will 
 2. Copy the files of the world of your choice to `(ConfDir)/Worlds/`. The world files look like `.wld` and `.twld`. </br>
 
 # 5. Server config
-<b> If you want to use your own server config, follow this step. Otherwise, just skip it. The server will generate a config automatically based on your provided environment variables. <b></br>
+<b> If you want to use your own server config, follow this step. Otherwise, just skip it. The server will generate a config automatically based on your provided environment variables. </b>
 
 The root of the tmodloader server files in the container is `/tmodloader/server/` and user items in `(ConfDir)` are mounted at `/tmodloader/config/` </br>
 
@@ -137,6 +137,9 @@ Your config directory should look something like:
 Assuming you did everything correctly, you should have a functional server that will automatically load the modpack and world upon start.</br>
 
 Some mods might have issues with the server when it starts up. This is rare but it happens and I can not do anything about this so you will have to remove that mod or find a work around yourself. </br>
+
+## Command injection
+You can run the command `docker exec (container name or id) inject "phrase"` to inject a phrase or command directly into the server. An example: `docker exec terrariaserver inject "say I'm radioactive!"`
 
 ## Access </br>
 In order to access the server, you will need the public IP of the host. This could be access from a properly setup CDN but you might not have one. In this case, search up "Whats my ip" or similar into your browser and use the IP that it shows.
