@@ -41,7 +41,7 @@ if [ "${PASSWORD}" != "" ]; then
   PASSWORDx="password=${PASSWORD}"
 fi
 if [ "${PORT}" = "" ]; then
-  echo "|| Port not set. Exiting...||"
+  echo "|| Port not set. Exiting... ||"
   exit
 fi
 PORTx="port=${PORT}"
@@ -74,12 +74,36 @@ if [ ${SERVERCONFIG} = "0" ]; then
   done
 fi
 
+pipe=/tmp/pipe.pipe
+
+function shutdown () {
+  inject "say Shutting down server in 3 seconds..."
+  sleep 3s
+  inject "exit"
+  tmuxPid=$(pgrep tmux)
+  while [ -e /proc/$tmuxPid ]; do
+    sleep .5
+  done
+  echo "|| Server stopped. ||"
+  rm $pipe
+}
+
+trap shutdown TERM INT
+
 # Replace server config every launch to ensure changes are set
 if [ -e /tmodloader/server/serverconfig.txt ]; then
   rm /tmodloader/server/serverconfig.txt
 fi
 cp /tmodloader/config/serverconfig.txt /tmodloader/server/
 
-echo "|| Starting server with ${MODPACK} modpack. ||"
-/tmodloader/server/start-tModLoaderServer.sh -config /tmodloader/server/serverconfig.txt
-exit
+echo "|| Starting server with ${MODPACK} modpack... ||"
+mkfifo $pipe
+tmux new-session -d "/tmodloader/server/start-tModLoaderServer.sh -config /tmodloader/server/serverconfig.txt | tee $pipe"
+
+# Sometimes the server doesn't start immediately and hangs. This basically just pokes it into starting.
+inject "poke"
+
+cat $pipe &
+wait ${!}
+
+echo "|| Finished shutting down. ||"
