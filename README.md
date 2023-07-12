@@ -22,12 +22,15 @@ Depending on your host, find a suitable place to store your server files. Make s
 For the sake of these instructions, we will call this place `(ConfDir)`. In `(ConfDir)`, make 2 directories, one called `ModPacks` and one called `Worlds`, spelled exactly as show. This location is also where your `serverconfig.txt` will be stored if you want to use your own. Details on this are in step 5. </br>
 
 # 2. Server environment variables
-For every variable you want the server to use, add that variable to your docker run or compose with `-e (Variable)=(Value)`. If they are not set, they will default to whatever their default value is. This is to ensure basic functionality. By default, the server will not successfully run. The only variable required to be set for the server to function is `MODPACK`.
+For every variable you want the server to use, add that variable to your docker run or compose with `-e (Variable)=(Value)`. If they are not set, they will default to whatever their default value is. This is to ensure basic functionality. By default, the server will not successfully run. The only server variable required to be set for the server to function is `MODPACK`.
 
 ### Container variables </br>
 | Variable | Options | Default | Details
 |:-|:-|:-|:-|
-VERSION | `string` | `latest` | Sets the version of TML that the script will download. I recommend setting it to a value so it doesn't change upon new runs. `latest` will download the latest version on every initial run. Valid versions are in the releases [here](https://github.com/tModLoader/tModLoader/releases). Do not included the v letter in the string. <br><b>Note: The latest github version doesn't always support the latest client version.</b></br>
+NOTIFS | `boolean` | `1` | Sets whether update notifications for the container are enabled. `1` for enabled, `0` for disabled.
+VERSION | `string` | `latest` | Sets the version of TML that the script will download.</b> I recommend setting it to a value so it doesn't change upon new runs. `latest` will download the latest version on every initial run. Valid versions are [here](https://github.com/tModLoader/tModLoader/releases). <br><b>Note:</b> The latest github version doesn't always support the latest client version.</br>
+RELEASE | `number` | `2022` | Sets the release version of TML. This would be your `1.4.3`, `1.4.4`, etc. Defaults to `2022` currently as that has a full release. Once again, valid releases are [here](https://github.com/tModLoader/tModLoader/releases).
+PRERELEASE | `boolean` | `0` | Sets the release to be prerelease. If the release has no full release, it will default to a prerelease. `0` for a full release and `1` to use a prerelease.
 SERVERCONFIG | `boolean` | `0` | Toggles whether the server will use a user provided serverconfig file. `0` to use environment variables and `1` for provided file. 
 
 Check out server details and examples [here on the wiki](https://terraria.fandom.com/wiki/Server#Server_config_file). </br>
