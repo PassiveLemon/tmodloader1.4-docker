@@ -6,10 +6,10 @@ if [ $(echo "${DOCKER} < ${UPDATE}" | bc -l) = "1" ] && [ "${NOTIFS}" != "0" ]; 
   echo "|| Container update available. Current (${DOCKER}): New (${UPDATE}). ||"
 fi
 
-# Version check & setting
-# Remove the V if its present
+# Remove the V from the version if its present
 VERSION=$(echo "${VERSION}" | awk '{gsub(/^v/, ""); print}')
 
+# Version checking & setting
 if [ "${PRERELEASE}" = "1" ]; then
   if [ "${VERSION}" = "latest" ]; then
     VERSION=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"${RELEASE}\")) | select(.prerelease)] | max_by(.created_at) | .tag_name")
@@ -32,7 +32,7 @@ else
   echo "|| Issue with PRERELEASE variable. Please ensure it is set correctly. ||"
 fi
 
-# File download
+# Downloads & setup
 cd /tmodloader/server/
 if [ ! -d "/tmodloader/server/Libraries/" ]; then
   echo "|| Downloading server files for ${VERSION}. ||"
@@ -70,6 +70,7 @@ if [ -e /tmodloader/server/serverconfig.txt ]; then
 fi
 cp /tmodloader/config/serverconfig.txt /tmodloader/server/
 
+# Start tmodloader in tmux session with a write pipe to output to docker logs
 echo "|| Starting server with ${MODPACK} modpack... ||"
 mkfifo $pipe
 tmux new-session -d "/tmodloader/server/start-tModLoaderServer.sh -config /tmodloader/server/serverconfig.txt | tee $pipe"
@@ -77,6 +78,7 @@ tmux new-session -d "/tmodloader/server/start-tModLoaderServer.sh -config /tmodl
 # Sometimes the server doesn't start immediately and hangs. This basically just pokes it into starting.
 inject "poke"
 
+# Read out pipe to display in docker logs
 cat $pipe &
 wait ${!}
 
