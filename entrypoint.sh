@@ -1,20 +1,42 @@
 #!/usr/bin/env bash
 
-tmlurllatest=https://github.com/tModLoader/tModLoader/releases/latest/download/tModLoader.zip
-tmlurlspecific=https://github.com/tModLoader/tModLoader/releases/download/v${VERSION}/tModLoader.zip
-
-if [ "${VERSION}" = "latest" ]; then
-  echo "|| Using the latest TML version. ||"
-  download=${tmlurllatest}
-else
-  echo "|| Using TML version ${VERSION}. ||"
-  download=${tmlurlspecific}
+# Container update notifier
+UPDATE=$(curl -s https://api.github.com/repos/PassiveLemon/tmodloader1.4-docker/releases | jq -r 'map(select(.prerelease = false)) | .[0].tag_name')
+if [ $(echo "${DOCKER} < ${UPDATE}" | bc -l) = "1" ] && [ "${NOTIFS}" != "0" ]; then
+  echo "|| Container update available. Current (${DOCKER}): New (${UPDATE}). ||"
 fi
 
+# Version check & setting
+# Remove the V if its present
+VERSION=$(echo "${VERSION}" | awk '{gsub(/^v/, ""); print}')
+
+if [ "${PRERELEASE}" = "1" ]; then
+  if [ "${VERSION}" = "latest" ]; then
+    VERSION=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"${RELEASE}\")) | select(.prerelease)] | max_by(.created_at) | .tag_name")
+    echo "|| Using TML prerelease ${RELEASE} version ${VERSION} (latest). ||"
+  else
+    RELEASE=$(echo "${VERSION}" | awk -F '.' '{print $1}')
+    VERSION=v${VERSION}
+    echo "|| Using TML prerelease ${RELEASE} version ${VERSION}. ||"
+  fi
+elif [ "${PRERELEASE}" = "0" ]; then
+  if [ "${VERSION}" = "latest" ]; then
+    VERSION=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"${RELEASE}\"))] | max_by(.created_at) | .tag_name")
+    echo "|| Using TML release ${RELEASE} version ${VERSION} (latest). ||"
+  else
+    RELEASE=$(echo "${VERSION}" | awk -F '.' '{print $1}')
+    VERSION=v${VERSION}
+    echo "|| Using TML release ${RELEASE} version ${VERSION}. ||"
+  fi
+else
+  echo "|| Issue with PRERELEASE variable. Please ensure it is set correctly. ||"
+fi
+
+# File download
 cd /tmodloader/server/
 if [ ! -d "/tmodloader/server/Libraries/" ]; then
-  echo "|| Downloading server files. ||"
-  curl -L --output /tmodloader/server/tModLoader.zip ${download}
+  echo "|| Downloading server files for ${VERSION}. ||"
+  curl -L --output /tmodloader/server/tModLoader.zip https://github.com/tModLoader/tModLoader/releases/download/${VERSION}/tModLoader.zip
   unzip -o /tmodloader/server/tModLoader.zip
   rm -r /tmodloader/server/tModLoader.zip
   rm /tmodloader/server/serverconfig.txt
@@ -23,56 +45,8 @@ if [ ! -d "/tmodloader/server/Libraries/" ]; then
   echo "|| Server setup completed. ||"
 fi
 
-# Define variables for config pasting later. Very crude and ugly
-AUTOCREATEx="autocreate=${AUTOCREATE}"
-DIFFICULTYx="difficulty=${DIFFICULTY}"
-BANLISTx="banlist=${BANLIST}"
-LANGUAGEx="language=${LANGUAGE}"
-MAXPLAYERSx="maxplayers=${MAXPLAYERS}"
-if [ "${MODPACK}" = "" ]; then
-  echo "|| Modpack name was not provided. Exiting... ||"
-  exit
-fi
-if [ "${MOTD}" != "" ]; then
-  MOTDx="motd=${MOTD}"
-fi
-NPCSTREAMx="npcstream=${NPCSTREAM}"
-if [ "${PASSWORD}" != "" ]; then
-  PASSWORDx="password=${PASSWORD}"
-fi
-if [ "${PORT}" = "" ]; then
-  echo "|| Port not set. Exiting... ||"
-  exit
-fi
-PORTx="port=${PORT}"
-PRIORITYx="priority=${PRIORITY}"
-SECUREx="secure=${SECURE}"
-if [ "${SEED}" != "" ]; then
-  SEEDx="seed=${SEED}"
-fi
-UPNPx="upnp=${UPNP}"
-WORLDNAMEx="worldname=${WORLDNAME}"
-
-# Automatically set variables
-WORLDx="world=/tmodloader/config/Worlds/${WORLDNAME}.wld"
-MODPACKx="modpack=/tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json"
-MODPATHx="modpath=/tmodloader/config/ModPacks/${MODPACK}/Mods/"
-
-if [ ! -e "/tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json" ]; then
-  echo "|| Modpack was not detected. Exiting... ||"
-  exit
-fi
-
-# Write variables to file
-cd /tmodloader/config/
-if [ ${SERVERCONFIG} = "0" ]; then
-  if [ -e /tmodloader/config/serverconfig.txt ]; then
-    rm /tmodloader/config/serverconfig.txt
-  fi
-  for argument in $AUTOCREATEx $DIFFICULTYx $BANLISTx $LANGUAGEx $MAXPLAYERSx $MOTDx $NPCSTREAMx $PASSWORDx $PORTx $PRIORITYx $SEEDx $SECUREx $UPNPx $WORLDNAMEx $WORLDx $MODPACKx $MODPATHx; do
-    echo $argument >> serverconfig.txt
-  done
-fi
+# Run the variables script to check and process server variables
+source /tmodloader/variables.sh
 
 pipe=/tmp/pipe.pipe
 
@@ -81,7 +55,7 @@ function shutdown () {
   sleep 3s
   inject "exit"
   tmuxPid=$(pgrep tmux)
-  while [ -e /proc/$tmuxPid ]; do
+  while [ -e "/proc/$tmuxPid" ]; do
     sleep .5
   done
   echo "|| Server stopped. ||"
