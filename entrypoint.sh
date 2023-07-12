@@ -32,6 +32,12 @@ else
   echo "|| Issue with PRERELEASE variable. Please ensure it is set correctly. ||"
 fi
 
+# If version isn't valid, hard stop.
+if [ $(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"${VERSION}\"))] | max_by(.created_at) | .tag_name") = "null" ]; then
+  echo "|| ${VERSION} is not a valid version. Please ensure it is set correctly. ||"
+  exit
+fi
+
 # Downloads & setup
 cd /tmodloader/server/
 if [ ! -d "/tmodloader/server/Libraries/" ]; then
