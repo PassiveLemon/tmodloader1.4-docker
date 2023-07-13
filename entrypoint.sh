@@ -1,41 +1,48 @@
 #!/usr/bin/env bash
 
 # Container update notifier
-UPDATE=$(curl -s https://api.github.com/repos/PassiveLemon/tmodloader1.4-docker/releases | jq -r 'map(select(.prerelease = false)) | .[0].tag_name')
-if [ $(echo "${DOCKER} < ${UPDATE}" | bc -l) = "1" ] && [ "${NOTIFS}" != "0" ]; then
-  echo "|| Container update available. Current (${DOCKER}): New (${UPDATE}). ||"
-fi
+. /tmodloader/notifier.sh
 
 # Remove the V from the version if its present
 VERSION=$(echo "${VERSION}" | awk '{gsub(/^v/, ""); print}')
 
-# Version checking & setting
+# If version isn't valid, hard stop.
+function versionvalidate () {
+  if [ -z $(curl -s "https://api.github.com/repos/tModLoader/tModLoader/git/refs/tags" | jq -r ".[].ref | select(contains(\"${VERSION}\"))") ]; then
+    echo "|| ${VERSION} is not a valid version. Please ensure it is set correctly. ||"
+    exit
+  fi
+}
+
+# Version setting
 if [ "${PRERELEASE}" = "1" ]; then
   if [ "${VERSION}" = "latest" ]; then
+    # Latest prerelease
     VERSION=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"${RELEASE}\")) | select(.prerelease)] | max_by(.created_at) | .tag_name")
+    versionvalidate
     echo "|| Using TML prerelease ${RELEASE} version ${VERSION} (latest). ||"
   else
+    # Set prerelease
     RELEASE=$(echo "${VERSION}" | awk -F '.' '{print $1}')
     VERSION=v${VERSION}
+    versionvalidate
     echo "|| Using TML prerelease ${RELEASE} version ${VERSION}. ||"
   fi
 elif [ "${PRERELEASE}" = "0" ]; then
   if [ "${VERSION}" = "latest" ]; then
+    # Latest release
     VERSION=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"${RELEASE}\"))] | max_by(.created_at) | .tag_name")
+    versionvalidate
     echo "|| Using TML release ${RELEASE} version ${VERSION} (latest). ||"
   else
+    # Set release
     RELEASE=$(echo "${VERSION}" | awk -F '.' '{print $1}')
     VERSION=v${VERSION}
+    versionvalidate
     echo "|| Using TML release ${RELEASE} version ${VERSION}. ||"
   fi
 else
   echo "|| Issue with PRERELEASE variable. Please ensure it is set correctly. ||"
-fi
-
-# If version isn't valid, hard stop.
-if [ $(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"${VERSION}\"))] | max_by(.created_at) | .tag_name") = "null" ]; then
-  echo "|| ${VERSION} is not a valid version. Please ensure it is set correctly. ||"
-  exit
 fi
 
 # Downloads & setup
