@@ -1,7 +1,7 @@
 FROM alpine:3.18.2
 
 RUN apk update && apk upgrade &&\
-    apk add bash grep curl unzip icu-dev tmux jq bc
+    apk add bash grep curl unzip icu-dev tmux jq
 
 RUN mkdir -p /tmodloader/server/ &&\
     mkdir -p /tmodloader/config/ModPacks &&\
