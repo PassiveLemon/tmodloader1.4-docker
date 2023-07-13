@@ -29,7 +29,7 @@ For every variable you want the server to use, add that variable to your docker 
 |:-|:-|:-|:-|
 NOTIFS | `boolean` | `1` | Sets whether update notifications for the container are enabled. `1` for enabled, `0` for disabled.
 VERSION | `string` | `latest` | Sets the version of TML that the script will download.</b> I recommend setting it to a value so it doesn't change upon new runs. `latest` will download the latest version on every initial run. Valid versions are [here](https://github.com/tModLoader/tModLoader/releases). <br><b>Note:</b> The latest github version doesn't always support the latest client version.</br>
-RELEASE | `number` | `2022` | Sets the release version of TML. This would be your `2022 = 1.4.3`, `2023 = 1.4.4`, etc. Defaults to `2022` currently as that has a full release. Once again, valid releases are [here](https://github.com/tModLoader/tModLoader/releases).
+RELEASE | `number` | `2022` | Sets the release version of TML. This would be your `2022 = 1.4.3`, `2023 = 1.4.4`, etc. Defaults to `2022` currently as that has a full release. Once again, valid releases are [here](https://github.com/tModLoader/tModLoader/releases). <b>Note:</b> If you have `VERSION` set, you do not need to manually set this variable.
 PRERELEASE | `boolean` | `0` | Sets the release to be prerelease. If the release has no full release, it will default to a prerelease. `0` for a full release and `1` to use a prerelease.
 SERVERCONFIG | `boolean` | `0` | Toggles whether the server will use a user provided serverconfig file. `0` to use environment variables and `1` for provided file. 
 
