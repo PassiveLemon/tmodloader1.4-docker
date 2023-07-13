@@ -1,20 +1,55 @@
 #!/usr/bin/env bash
 
-tmlurllatest=https://github.com/tModLoader/tModLoader/releases/latest/download/tModLoader.zip
-tmlurlspecific=https://github.com/tModLoader/tModLoader/releases/download/v${VERSION}/tModLoader.zip
+# Container update notifier
+. /tmodloader/notifier.sh
 
-if [ "${VERSION}" = "latest" ]; then
-  echo "|| Using the latest TML version. ||"
-  download=${tmlurllatest}
+# Remove the V from the version if its present
+VERSION=$(echo "${VERSION}" | awk '{gsub(/^v/, ""); print}')
+
+# If version isn't valid, hard stop.
+function versionvalidate () {
+  if [ -z $(curl -s "https://api.github.com/repos/tModLoader/tModLoader/git/refs/tags" | jq -r ".[].ref | select(contains(\"${VERSION}\"))") ]; then
+    echo "|| ${VERSION} is not a valid version. Please ensure it is set correctly. ||"
+    exit
+  fi
+}
+
+# Version setting
+if [ "${PRERELEASE}" = "1" ]; then
+  if [ "${VERSION}" = "latest" ]; then
+    # Latest prerelease
+    VERSION=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"${RELEASE}\")) | select(.prerelease)] | max_by(.created_at) | .tag_name")
+    versionvalidate
+    echo "|| Using TML prerelease ${RELEASE} version ${VERSION} (latest). ||"
+  else
+    # Set prerelease
+    RELEASE=$(echo "${VERSION}" | awk -F '.' '{print $1}')
+    VERSION=v${VERSION}
+    versionvalidate
+    echo "|| Using TML prerelease ${RELEASE} version ${VERSION}. ||"
+  fi
+elif [ "${PRERELEASE}" = "0" ]; then
+  if [ "${VERSION}" = "latest" ]; then
+    # Latest release
+    VERSION=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"${RELEASE}\"))] | max_by(.created_at) | .tag_name")
+    versionvalidate
+    echo "|| Using TML release ${RELEASE} version ${VERSION} (latest). ||"
+  else
+    # Set release
+    RELEASE=$(echo "${VERSION}" | awk -F '.' '{print $1}')
+    VERSION=v${VERSION}
+    versionvalidate
+    echo "|| Using TML release ${RELEASE} version ${VERSION}. ||"
+  fi
 else
-  echo "|| Using TML version ${VERSION}. ||"
-  download=${tmlurlspecific}
+  echo "|| Issue with PRERELEASE variable. Please ensure it is set correctly. ||"
 fi
 
+# Downloads & setup
 cd /tmodloader/server/
 if [ ! -d "/tmodloader/server/Libraries/" ]; then
-  echo "|| Downloading server files. ||"
-  curl -L --output /tmodloader/server/tModLoader.zip ${download}
+  echo "|| Downloading server files for ${VERSION}. ||"
+  curl -L --output /tmodloader/server/tModLoader.zip https://github.com/tModLoader/tModLoader/releases/download/${VERSION}/tModLoader.zip
   unzip -o /tmodloader/server/tModLoader.zip
   rm -r /tmodloader/server/tModLoader.zip
   rm /tmodloader/server/serverconfig.txt
@@ -23,56 +58,8 @@ if [ ! -d "/tmodloader/server/Libraries/" ]; then
   echo "|| Server setup completed. ||"
 fi
 
-# Define variables for config pasting later. Very crude and ugly
-AUTOCREATEx="autocreate=${AUTOCREATE}"
-DIFFICULTYx="difficulty=${DIFFICULTY}"
-BANLISTx="banlist=${BANLIST}"
-LANGUAGEx="language=${LANGUAGE}"
-MAXPLAYERSx="maxplayers=${MAXPLAYERS}"
-if [ "${MODPACK}" = "" ]; then
-  echo "|| Modpack name was not provided. Exiting... ||"
-  exit
-fi
-if [ "${MOTD}" != "" ]; then
-  MOTDx="motd=${MOTD}"
-fi
-NPCSTREAMx="npcstream=${NPCSTREAM}"
-if [ "${PASSWORD}" != "" ]; then
-  PASSWORDx="password=${PASSWORD}"
-fi
-if [ "${PORT}" = "" ]; then
-  echo "|| Port not set. Exiting... ||"
-  exit
-fi
-PORTx="port=${PORT}"
-PRIORITYx="priority=${PRIORITY}"
-SECUREx="secure=${SECURE}"
-if [ "${SEED}" != "" ]; then
-  SEEDx="seed=${SEED}"
-fi
-UPNPx="upnp=${UPNP}"
-WORLDNAMEx="worldname=${WORLDNAME}"
-
-# Automatically set variables
-WORLDx="world=/tmodloader/config/Worlds/${WORLDNAME}.wld"
-MODPACKx="modpack=/tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json"
-MODPATHx="modpath=/tmodloader/config/ModPacks/${MODPACK}/Mods/"
-
-if [ ! -e "/tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json" ]; then
-  echo "|| Modpack was not detected. Exiting... ||"
-  exit
-fi
-
-# Write variables to file
-cd /tmodloader/config/
-if [ ${SERVERCONFIG} = "0" ]; then
-  if [ -e /tmodloader/config/serverconfig.txt ]; then
-    rm /tmodloader/config/serverconfig.txt
-  fi
-  for argument in $AUTOCREATEx $DIFFICULTYx $BANLISTx $LANGUAGEx $MAXPLAYERSx $MOTDx $NPCSTREAMx $PASSWORDx $PORTx $PRIORITYx $SEEDx $SECUREx $UPNPx $WORLDNAMEx $WORLDx $MODPACKx $MODPATHx; do
-    echo $argument >> serverconfig.txt
-  done
-fi
+# Run the variables script to check and process server variables
+source /tmodloader/variables.sh
 
 pipe=/tmp/pipe.pipe
 
@@ -81,7 +68,7 @@ function shutdown () {
   sleep 3s
   inject "exit"
   tmuxPid=$(pgrep tmux)
-  while [ -e /proc/$tmuxPid ]; do
+  while [ -e "/proc/$tmuxPid" ]; do
     sleep .5
   done
   echo "|| Server stopped. ||"
@@ -96,6 +83,7 @@ if [ -e /tmodloader/server/serverconfig.txt ]; then
 fi
 cp /tmodloader/config/serverconfig.txt /tmodloader/server/
 
+# Start tmodloader in tmux session with a write pipe to output to docker logs
 echo "|| Starting server with ${MODPACK} modpack... ||"
 mkfifo $pipe
 tmux new-session -d "/tmodloader/server/start-tModLoaderServer.sh -config /tmodloader/server/serverconfig.txt | tee $pipe"
@@ -103,6 +91,7 @@ tmux new-session -d "/tmodloader/server/start-tModLoaderServer.sh -config /tmodl
 # Sometimes the server doesn't start immediately and hangs. This basically just pokes it into starting.
 inject "poke"
 
+# Read out pipe to display in docker logs
 cat $pipe &
 wait ${!}
 
