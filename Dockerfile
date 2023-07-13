@@ -9,13 +9,14 @@ RUN mkdir -p /tmodloader/server/ &&\
 
 COPY entrypoint.sh /tmodloader/
 COPY variables.sh /tmodloader/
+COPY notifier.sh /tmodloader/
 COPY inject.sh /usr/local/bin/inject
 
 RUN chmod +x /tmodloader/entrypoint.sh &&\
     chmod 755 /usr/local/bin/inject
 
-ENV DOCKER="2.0"
-ENV NOTIFS="true"
+ENV DOCKER="2.0.0"
+ENV NOTIFS="1"
 
 ENV PRERELEASE="0"
 ENV RELEASE="2022"
