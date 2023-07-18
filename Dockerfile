@@ -16,7 +16,7 @@ RUN chmod 755 /tmodloader/ &&\
     chmod +x /tmodloader/entrypoint.sh &&\
     chmod 755 /usr/local/bin/inject
 
-ENV DOCKER="2.0.0"
+ENV DOCKER="2.0.1"
 ENV NOTIFS="1"
 
 ENV PRERELEASE="0"
