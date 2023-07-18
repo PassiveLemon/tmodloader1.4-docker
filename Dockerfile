@@ -12,7 +12,8 @@ COPY variables.sh /tmodloader/
 COPY notifier.sh /tmodloader/
 COPY inject.sh /usr/local/bin/inject
 
-RUN chmod +x /tmodloader/entrypoint.sh &&\
+RUN chmod 755 /tmodloader/ &&\
+    chmod +x /tmodloader/entrypoint.sh &&\
     chmod 755 /usr/local/bin/inject
 
 ENV DOCKER="2.0.0"
