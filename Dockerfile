@@ -1,27 +1,33 @@
-FROM alpine:3.18.2
+FROM docker.io/alpine:latest
+# VERSION comes from the main.yml workflow --build-arg
+ARG VERSION
 
-RUN apk update && apk upgrade &&\
-    apk add bash grep curl unzip icu-dev tmux jq
+RUN apk add --no-cache bash grep curl unzip icu-dev tmux jq
 
-RUN mkdir -p /tmodloader/server/ &&\
-    mkdir -p /tmodloader/config/ModPacks &&\
-    mkdir -p /tmodloader/config/Worlds
+RUN mkdir -p /opt/tmodloader/server/ &&\
+    mkdir -p /opt/tmodloader/config/ModPacks &&\
+    mkdir -p /opt/tmodloader/config/Worlds
 
-COPY entrypoint.sh /tmodloader/
-COPY variables.sh /tmodloader/
-COPY notifier.sh /tmodloader/
+COPY entrypoint.sh /opt/tmodloader/
+COPY variables.sh /opt/tmodloader/
 COPY inject.sh /usr/local/bin/inject
 
-RUN chmod 755 /tmodloader/ &&\
-    chmod +x /tmodloader/entrypoint.sh &&\
+RUN chmod 755 /opt/tmodloader/ &&\
+    chmod +x /opt/tmodloader/entrypoint.sh &&\
     chmod 755 /usr/local/bin/inject
 
-ENV DOCKER="2.0.1"
-ENV NOTIFS="1"
+WORKDIR /opt/tmodloader/server/
 
-ENV PRERELEASE="0"
-ENV RELEASE="2022"
-ENV VERSION="latest"
+RUN curl -Lo ./tModLoader.zip https://github.com/tModLoader/tModLoader/releases/download/v${VERSION}/tModLoader.zip
+
+RUN unzip -o ./tModLoader.zip &&\
+    rm -r ./tModLoader.zip &&\
+    rm ./serverconfig.txt
+
+RUN chmod +x ./start-tModLoaderServer.sh
+
+ENV VERSION=$VERSION
+
 ENV SERVERCONFIG="0"
 
 ENV AUTOCREATE="2"
@@ -40,4 +46,4 @@ ENV SEED=""
 ENV UPNP="0"
 ENV WORLDNAME="World"
 
-ENTRYPOINT ["/tmodloader/entrypoint.sh"]
+ENTRYPOINT ["/opt/tmodloader/entrypoint.sh"]
