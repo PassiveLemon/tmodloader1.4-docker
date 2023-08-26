@@ -13,7 +13,7 @@ Setup guide is also in the [Wiki](https://github.com/PassiveLemon/tmodloader1.4-
 1. Setup a directory for you server files. Can be something like `/opt/TerrariaServer/` or `C:\TerrariaServer\`.
 2. Add your modpack to the previous directory in the sub-directory `ModPacks/`
 3. Run the container: <b>(Make sure to modify any values that you need.)</b>
-  - ```docker run -d --name tmodloader1.4 -p 7777:7777/tcp -v /opt/TerrariaServer/:/tmodloader/config/ -e MODPACK=(your modpack) -e WORLD=superworld -e VERSION=2022.09.47.57 passivelemon/tmodloader1.4-docker:latest```
+  - ```docker run -d --name tmodloader1.4 -p 7777:7777/tcp -v /opt/TerrariaServer/:/opt/tmodloader/config/ -e MODPACK=(your modpack) -e WORLD=superworld passivelemon/tmodloader1.4-docker:latest```
 4. Set up port forwarding.
 
 # 1. Setting up main server files
@@ -27,10 +27,6 @@ For every variable you want the server to use, add that variable to your docker 
 ### Container variables </br>
 | Variable | Options | Default | Details
 |:-|:-|:-|:-|
-NOTIFS | `boolean` | `1` | Sets whether update notifications for the container are enabled. `1` for enabled, `0` for disabled.
-VERSION | `string` | `latest` | Sets the version of TML that the script will download.</b> I recommend setting it to a value so it doesn't change upon new runs. `latest` will download the latest version on every initial run. Valid versions are [here](https://github.com/tModLoader/tModLoader/releases). <br><b>Note:</b> The latest github version doesn't always support the latest client version.</br>
-RELEASE | `number` | `2022` | Sets the release version of TML. This would be your `2022 = 1.4.3`, `2023 = 1.4.4`, etc. Defaults to `2022` currently as that has a full release. Once again, valid releases are [here](https://github.com/tModLoader/tModLoader/releases). <b>Note:</b> If you have `VERSION` set, you do not need to manually set this variable.
-PRERELEASE | `boolean` | `0` | Sets the release to be prerelease. If the release has no full release, it will default to a prerelease. `0` for a full release and `1` to use a prerelease.
 SERVERCONFIG | `boolean` | `0` | Toggles whether the server will use a user provided serverconfig file. `0` to use environment variables and `1` for provided file. 
 
 Check out server details and examples [here on the wiki](https://terraria.fandom.com/wiki/Server#Server_config_file). </br>
@@ -82,7 +78,7 @@ If you provide a world file and correctly set the `WORLDNAME` variable, it will 
 # 5. Server config
 <b> If you want to use your own server config, follow this step. Otherwise, just skip it. The server will generate a config automatically based on your provided environment variables. </b>
 
-The root of the tmodloader server files in the container is `/tmodloader/server/` and user items in `(ConfDir)` are mounted at `/tmodloader/config/` </br>
+The root of the tmodloader server files in the container is `/opt/tmodloader/server/` and user items in `(ConfDir)` are mounted at `/opt/tmodloader/config/` </br>
 
 1. Set `SERVERCONFIG` to 1. 
 2. Put the `serverconfig.txt` into `(ConfDir)/`.
@@ -90,21 +86,58 @@ The root of the tmodloader server files in the container is `/tmodloader/server/
 [Server configuration details on the Terraria Wiki](https://terraria.fandom.com/wiki/Server#Server_config_file) </br>
 
 # 6. Docker container
-#### Template: </br>
+### Docker run </br>
 ```
-docker run -d --name (container name) -p 7777:7777 -v (ConfDir):/tmodloader/config/ -e VERSION=(tml version) passivelemon/tmodloader1.4-docker:latest
+docker run -d --name (container name) -p 7777:7777 -v (ConfDir):/opt/tmodloader/config/ passivelemon/tmodloader1.4-docker:latest
 ```
+
+### Docker Compose
+```yml
+version: '3.3'
+services:
+  tmodloader-docker:
+    image: passivelemon/tmoadloader-docker:latest
+    container_name: tmoadloader-docker
+    ports:
+        - 7777:7777
+    volumes:
+      - (configuration directory):/opt/tmodloader/
+```
+
 | Operator | Need | Details |
 |:-|:-|:-|
 | `-d` | Yes | Will run the container in the background. |
 | `--name (container name)` | No | Sets the name of the container to the following string. You can change this to whatever you want. |
 | `-p 7777:7777` | Yes | The default port used by the server. This translates from your host 7777 into the container 7777. <br><b>If you use a different port for your server in your serverconfig, change this.</b></br> |
-| `-v (ConfDir):/tmodloader/config` | Yes | Sets the folder that holds the configs like your modpack, worlds, and serverconfig.txt. This should be the place you just chose. |
+| `-v (ConfDir):/opt/tmodloader/config` | Yes | Sets the folder that holds the configs like your modpack, worlds, and serverconfig.txt. This should be the place you just chose. |
 | `passivelemon/tmodloader1.4-docker:latest` | Yes | The repository on Docker hub. By default, it is the latest version that I have published. |
 
-#### Example: </br>
+| Tag | Purpose |
+| :- | :- |
+| `latest` | The latest tModLoader release. |
+| `version-latest` | The latest release of that version. (2022, 2023) |
+| `version-latest-pre` | The latest release of that pre-release. |
+
+## Examples </br>
+### Docker run
 ```
-docker run -d --name tmodloader1.4 -p 7777:7777/tcp -v /opt/tModLoaderServer/:/tmodloader/config/ -e MODPACK=ultimatepack -e WORLD=superworld -e VERSION=2022.09.47.44 passivelemon/tmodloader1.4-docker:latest
+docker run -d --name tmodloader1.4 -p 7777:7777/tcp -v /opt/tModLoaderServer/:/opt/tmodloader/config/ -e MODPACK=ultimatepack -e WORLD=superworld passivelemon/tmodloader1.4-docker:latest
+```
+
+### Docker compose
+```yml
+version: '3.3'
+services:
+  tmodloader-docker:
+    image: passivelemon/tmoadloader-docker:latest
+    container_name: tmoadloader-docker
+    ports:
+      - 7777:7777
+    volumes:
+      - /opt/tModLoaderServer/:/opt/tmodloader/
+    environment:
+      MODPACK: 'ultimatepack'
+      WORLD: 'superworld'
 ```
 
 # 7. Port forwarding
