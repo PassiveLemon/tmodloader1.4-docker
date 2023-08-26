@@ -31,20 +31,20 @@ UPNPx="upnp=${UPNP}"
 WORLDNAMEx="worldname=${WORLDNAME}"
 
 # Automatically set variables
-WORLDx="world=/tmodloader/config/Worlds/${WORLDNAME}.wld"
-MODPACKx="modpack=/tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json"
-MODPATHx="modpath=/tmodloader/config/ModPacks/${MODPACK}/Mods/"
+WORLDx="world=/opt/tmodloader/config/Worlds/${WORLDNAME}.wld"
+MODPACKx="modpack=/opt/tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json"
+MODPATHx="modpath=/opt/tmodloader/config/ModPacks/${MODPACK}/Mods/"
 
-if [ ! -e "/tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json" ]; then
+if [ ! -e "/opt/tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json" ]; then
   echo "|| Modpack was not detected. Exiting... ||"
   exit
 fi
 
 # Write variables to file
-cd /tmodloader/config/
+cd /opt/tmodloader/config/
 if [ ${SERVERCONFIG} = "0" ]; then
-  if [ -e /tmodloader/config/serverconfig.txt ]; then
-    rm /tmodloader/config/serverconfig.txt
+  if [ -e /opt/tmodloader/config/serverconfig.txt ]; then
+    rm /opt/tmodloader/config/serverconfig.txt
   fi
   for argument in $AUTOCREATEx $DIFFICULTYx $BANLISTx $LANGUAGEx $MAXPLAYERSx $MOTDx $NPCSTREAMx $PASSWORDx $PORTx $PRIORITYx $SEEDx $SECUREx $UPNPx $WORLDNAMEx $WORLDx $MODPACKx $MODPATHx; do
     echo $argument >> serverconfig.txt

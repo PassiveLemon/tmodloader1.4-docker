@@ -2,7 +2,7 @@
 echo "tModLoader version $VERSION"
 
 # Run the variables script to check and process server variables
-source /tmodloader/variables.sh
+source /opt/tmodloader/variables.sh
 
 pipe=/tmp/pipe.pipe
 
@@ -22,14 +22,14 @@ trap shutdown TERM INT
 
 # Replace server config every launch to ensure changes are set
 if [ -e /tmodloader/server/serverconfig.txt ]; then
-  rm /tmodloader/server/serverconfig.txt
+  rm /opt/tmodloader/server/serverconfig.txt
 fi
-cp /tmodloader/config/serverconfig.txt /tmodloader/server/
+cp /opt/tmodloader/config/serverconfig.txt /opt/tmodloader/server/
 
 # Start tmodloader in tmux session with a write pipe to output to docker logs
 echo "|| Starting server with ${MODPACK} modpack... ||"
 mkfifo $pipe
-tmux new-session -d "/tmodloader/server/start-tModLoaderServer.sh -config /tmodloader/server/serverconfig.txt | tee $pipe"
+tmux new-session -d "/opt/tmodloader/server/start-tModLoaderServer.sh -config /opt/tmodloader/server/serverconfig.txt | tee $pipe"
 
 # Sometimes the server doesn't start immediately and hangs. This basically just pokes it into starting.
 inject "poke"
