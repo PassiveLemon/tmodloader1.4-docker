@@ -21,10 +21,11 @@ WORKDIR /opt/tmodloader/server/
 RUN curl -Lo ./tModLoader.zip https://github.com/tModLoader/tModLoader/releases/download/v${VERSION}/tModLoader.zip
 
 RUN unzip -o ./tModLoader.zip &&\
-    rm -r ./tModLoader.zip &&\
+    rm ./tModLoader.zip &&\
     rm ./serverconfig.txt
 
-RUN chmod +x ./start-tModLoaderServer.sh
+RUN chmod -R 755 /opt/tmodloader/ &&\
+    chmod +x ./start-tModLoaderServer.sh
 
 ENV VERSION=$VERSION
 
