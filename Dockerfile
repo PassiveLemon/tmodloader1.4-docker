@@ -2,7 +2,7 @@ FROM docker.io/alpine:latest
 # VERSION comes from the main.yml workflow --build-arg
 ARG VERSION
 
-RUN apk add bash grep curl unzip icu-dev tmux jq
+RUN apk add bash grep curl unzip icu-dev tmux jq netcat-openbsd
 
 RUN mkdir -p /opt/tmodloader/server/ &&\
     mkdir -p /opt/tmodloader/config/ModPacks &&\
@@ -39,7 +39,6 @@ ENV MODPACK=""
 ENV MOTD=""
 ENV NPCSTREAM="15"
 ENV PASSWORD=""
-ENV PORT="7777"
 ENV PRIORITY="1"
 ENV SECURE="1"
 ENV SEED=""
@@ -47,3 +46,5 @@ ENV UPNP="0"
 ENV WORLDNAME="World"
 
 ENTRYPOINT ["/opt/tmodloader/entrypoint.sh"]
+
+HEALTHCHECK --interval=5s --timeout=5s --retries=2 CMD nc -vz 127.0.0.1 7777 || exit 1

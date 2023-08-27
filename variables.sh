@@ -17,11 +17,7 @@ NPCSTREAMx="npcstream=${NPCSTREAM}"
 if [ "${PASSWORD}" != "" ]; then
   PASSWORDx="password=${PASSWORD}"
 fi
-if [ "${PORT}" = "" ]; then
-  echo "|| Port not set. Exiting... ||"
-  exit
-fi
-PORTx="port=${PORT}"
+PORTx="7777"
 PRIORITYx="priority=${PRIORITY}"
 SECUREx="secure=${SECURE}"
 if [ "${SEED}" != "" ]; then
