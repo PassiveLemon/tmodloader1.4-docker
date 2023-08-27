@@ -24,8 +24,7 @@ RUN unzip -o ./tModLoader.zip &&\
     rm ./tModLoader.zip &&\
     rm ./serverconfig.txt
 
-RUN chmod -R 755 /opt/tmodloader/ &&\
-    chmod +x ./start-tModLoaderServer.sh
+RUN chmod +x ./start-tModLoaderServer.sh
 
 ENV VERSION=$VERSION
 
