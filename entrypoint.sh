@@ -21,7 +21,7 @@ function shutdown () {
 trap shutdown TERM INT
 
 # Replace server config every launch to ensure changes are set
-if [ -e /tmodloader/server/serverconfig.txt ]; then
+if [ -e /opt/tmodloader/server/serverconfig.txt ]; then
   rm /opt/tmodloader/server/serverconfig.txt
 fi
 cp /opt/tmodloader/config/serverconfig.txt /opt/tmodloader/server/

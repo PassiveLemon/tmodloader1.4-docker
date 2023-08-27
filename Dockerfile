@@ -12,7 +12,7 @@ COPY entrypoint.sh /opt/tmodloader/
 COPY variables.sh /opt/tmodloader/
 COPY inject.sh /usr/local/bin/inject
 
-RUN chmod 755 /opt/tmodloader/ &&\
+RUN chmod -R 755 /opt/tmodloader/ &&\
     chmod +x /opt/tmodloader/entrypoint.sh &&\
     chmod 755 /usr/local/bin/inject
 
