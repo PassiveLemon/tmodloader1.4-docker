@@ -1,8 +1,8 @@
-FROM docker.io/alpine:latest
+FROM docker.io/ubuntu:latest
 # VERSION comes from the main.yml workflow --build-arg
 ARG VERSION
 
-RUN apk add --no-cache bash grep curl unzip icu-dev tmux jq
+RUN apt-get install --no-cache bash grep curl unzip libicu-dev tmux jq
 
 RUN mkdir -p /opt/tmodloader/server/ &&\
     mkdir -p /opt/tmodloader/config/ModPacks &&\
