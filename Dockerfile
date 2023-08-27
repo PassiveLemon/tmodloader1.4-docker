@@ -2,7 +2,7 @@ FROM docker.io/ubuntu:latest
 # VERSION comes from the main.yml workflow --build-arg
 ARG VERSION
 
-RUN apt-get install bash grep curl unzip libicu-dev tmux jq
+RUN apt-get update && apt-get install bash grep curl unzip libicu-dev tmux jq
 
 RUN mkdir -p /opt/tmodloader/server/ &&\
     mkdir -p /opt/tmodloader/config/ModPacks &&\
