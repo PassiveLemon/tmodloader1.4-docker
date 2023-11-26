@@ -2,7 +2,9 @@ FROM docker.io/alpine:latest
 # VERSION comes from the main.yml workflow --build-arg
 ARG VERSION
 
-RUN apk add bash grep curl unzip icu-dev tmux jq netcat-openbsd
+RUN apk add --no-cache bash grep curl unzip icu-dev tmux jq netcat-openbsd
+# Alternatives for security
+RUN apk add --no-cache openssl=3.1.4-r1
 
 RUN mkdir -p /opt/tmodloader/server/ &&\
     mkdir -p /opt/tmodloader/config/ModPacks &&\
