@@ -15,8 +15,6 @@ jobs:
 
       - name: Keepalive
       - uses: gautamkrishnar/keepalive-workflow@v1
-        #with:
-        #  gh_token: $
 
       - name: Get latest release tag
         id: get_latest_release_tag
