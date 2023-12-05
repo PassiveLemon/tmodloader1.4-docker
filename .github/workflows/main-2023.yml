@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - uses: gautamkrishnar/keepalive-workflow@v1
 
       - name: Get latest release tag
         id: get_latest_release_tag
@@ -19,7 +20,6 @@ jobs:
           LATEST=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"2023\")) | select(.prerelease == false)] | max_by(.created_at) | .tag_name | sub(\"^v\";\"\")")
           echo "Latest 2023 release is ${LATEST}"
           echo "latest_tag=$LATEST" >> "$GITHUB_OUTPUT"
-      - uses: gautamkrishnar/keepalive-workflow@v1
 
       - name: Check if version already exists
         run: |
