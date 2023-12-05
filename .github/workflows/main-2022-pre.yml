@@ -19,7 +19,7 @@ jobs:
           LATEST=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"2022\")) | select(.prerelease == true)] | max_by(.created_at) | .tag_name | sub(\"^v\";\"\")")
           echo "Latest 2022 pre-release is ${LATEST}"
           echo "latest_tag=$LATEST" >> "$GITHUB_OUTPUT"
-      
+
       - name: Check if version already exists
         run: |
           CHECK=$(curl -s "https://hub.docker.com/v2/repositories/passivelemon/tmodloader1.4-docker/tags/${{ steps.get_latest_release_tag.outputs.latest_tag }}")
