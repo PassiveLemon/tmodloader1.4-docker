@@ -101,7 +101,7 @@ services:
     ports:
         - 7777:7777
     volumes:
-      - (configuration directory):/opt/tmodloader/
+      - (configuration directory):/opt/tmodloader/config/
 ```
 
 | Operator | Need | Details |
@@ -134,7 +134,7 @@ services:
     ports:
       - 7777:7777
     volumes:
-      - /opt/tModLoaderServer/:/opt/tmodloader/
+      - /opt/tModLoaderServer/:/opt/tmodloader/config/
     environment:
       MODPACK: 'ultimatepack'
       WORLD: 'superworld'
@@ -186,11 +186,6 @@ You will also need a port. If you didn't change the defaults, it will just be 77
 The server should automatically force users to download whatever mods the server has loaded. </br>
 
 Have fun! </br>
-
-## Other details
-If you get a jq syntax error, you might be rate limited by GitHub. Try running `curl -s https://api.github.com/repos/tModLoader/tModLoader/releases` on the server host and check the message. </br>
-
-If you have any issues, questions, or concerns, open an issue and I will offer support. </br>
 
 # Credits
 [rfvgyhn](https://github.com/rfvgyhn/tmodloader-docker) for the server injection functionality.
