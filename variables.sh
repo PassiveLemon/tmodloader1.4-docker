@@ -17,7 +17,7 @@ NPCSTREAMx="npcstream=${NPCSTREAM}"
 if [ "${PASSWORD}" != "" ]; then
   PASSWORDx="password=${PASSWORD}"
 fi
-PORTx="7777"
+PORTx="port=7777"
 PRIORITYx="priority=${PRIORITY}"
 SECUREx="secure=${SECURE}"
 if [ "${SEED}" != "" ]; then
