@@ -49,4 +49,4 @@ ENV WORLDNAME="World"
 
 ENTRYPOINT ["/opt/tmodloader/entrypoint.sh"]
 
-HEALTHCHECK --interval=5s --timeout=5s --retries=2 CMD nc -vz 127.0.0.1 7777 || exit 1
+HEALTHCHECK --interval=15s --timeout=5s --start-period=10s --retries=3 CMD nc -vz 127.0.0.1 7777 || exit 1
