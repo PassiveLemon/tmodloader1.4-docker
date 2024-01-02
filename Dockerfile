@@ -3,8 +3,6 @@ FROM docker.io/alpine:latest
 ARG VERSION
 
 RUN apk add --no-cache bash grep curl unzip icu-dev tmux jq netcat-openbsd
-# Alternatives for security
-RUN apk add --no-cache openssl=3.1.4-r1
 
 RUN mkdir -p /opt/tmodloader/server/ &&\
     mkdir -p /opt/tmodloader/config/ModPacks &&\
