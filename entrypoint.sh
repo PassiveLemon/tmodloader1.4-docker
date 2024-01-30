@@ -28,11 +28,13 @@ cp /opt/tmodloader/config/serverconfig.txt /opt/tmodloader/server/
 
 # Start tmodloader in tmux session with a write pipe to output to docker logs
 echo "|| Starting server with ${MODPACK} modpack... ||"
-mkfifo $pipe
+if [ ! -p "$pipe" ]; then
+  mkfifo $pipe
+fi
 tmux new-session -d "/opt/tmodloader/server/start-tModLoaderServer.sh -config /opt/tmodloader/server/serverconfig.txt | tee $pipe"
 
 # Sometimes the server doesn't start immediately and hangs. This basically just pokes it into starting.
-inject "poke"
+inject "help"
 
 # Read out pipe to display in docker logs
 cat $pipe &
