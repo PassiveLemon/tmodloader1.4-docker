@@ -115,7 +115,7 @@ services:
 | Tag | Purpose |
 | :- | :- |
 | `latest` | The latest tModLoader release. |
-| `version-latest` | The latest release of that version. (2022, 2023) |
+| `version-latest` | The latest release of that version. (2022, 2023, 2024) |
 | `version-latest-pre` | The latest release of that pre-release. |
 
 ## Examples </br>

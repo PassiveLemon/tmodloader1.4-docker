@@ -1,10 +1,10 @@
-name: Automatic Update (2023)
+name: Automatic Update (2024 Pre)
 
 on:
   push:
     branches: master
   schedule:
-  - cron: "0 */5 * * *"
+  - cron: "0 */2 * * *"
 
 jobs:
   setup-build-push:
@@ -12,13 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - uses: gautamkrishnar/keepalive-workflow@v1
 
       - name: Get latest release tag
         id: get_latest_release_tag
         run: |
-          LATEST=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"2023\")) | select(.prerelease == false)] | max_by(.created_at) | .tag_name | sub(\"^v\";\"\")")
-          echo "Latest 2023 release is ${LATEST}"
+          LATEST=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"2024\")) | select(.prerelease == true)] | max_by(.created_at) | .tag_name | sub(\"^v\";\"\")")
+          echo "Latest 2024 pre-release is ${LATEST}"
           echo "latest_tag=$LATEST" >> "$GITHUB_OUTPUT"
 
       - name: Check if version already exists
@@ -51,7 +50,7 @@ jobs:
             --provenance=false \
             --platform linux/amd64 \
             --tag ${{ secrets.DOCKER_USERNAME }}/tmodloader1.4-docker:${{ steps.get_latest_release_tag.outputs.latest_tag }} \
-            --tag ${{ secrets.DOCKER_USERNAME }}/tmodloader1.4-docker:latest-2023 \
+            --tag ${{ secrets.DOCKER_USERNAME }}/tmodloader1.4-docker:latest-2024-pre \
             --tag ghcr.io/${{ secrets.GHCR_USERNAME }}/tmodloader1.4-docker:${{ steps.get_latest_release_tag.outputs.latest_tag }} \
-            --tag ghcr.io/${{ secrets.GHCR_USERNAME }}/tmodloader1.4-docker:latest-2023 \
+            --tag ghcr.io/${{ secrets.GHCR_USERNAME }}/tmodloader1.4-docker:latest-2024-pre \
             .
