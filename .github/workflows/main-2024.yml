@@ -1,4 +1,4 @@
-name: Automatic Update (2023)
+name: Automatic Update (2024)
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
         id: get_latest_release_tag
         run: |
           LATEST=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"2024\")) | select(.prerelease == false)] | max_by(.created_at) | .tag_name | sub(\"^v\";\"\")")
-          echo "Latest 2023 release is ${LATEST}"
+          echo "Latest 2024 release is ${LATEST}"
           echo "latest_tag=$LATEST" >> "$GITHUB_OUTPUT"
 
       - name: Check if version already exists
