@@ -10,7 +10,7 @@ Docker container for a [tModLoader](https://github.com/tModLoader/tModLoader) 1.
 Setup guide is also in the [Wiki](https://github.com/PassiveLemon/tmodloader1.4-docker/wiki) for organization. </br>
 
 # Quick setup
-1. Setup a directory for you server files. Can be something like `/opt/TerrariaServer/` or `C:\TerrariaServer\`.
+1. Setup a directory for you server files. Can be something like `/opt/TerrariaServer/`(Linux) or `C:\TerrariaServer\`(Windows).
 2. Add your modpack to the previous directory in the sub-directory `ModPacks/`
 3. Run the container: <b>(Make sure to modify any values that you need.)</b>
   - ```docker run -d --name tmodloader1.4 -p 7777:7777/tcp -v /opt/TerrariaServer/:/opt/tmodloader/config/ -e MODPACK=(your modpack) -e WORLD=superworld passivelemon/tmodloader1.4-docker:latest```
@@ -27,9 +27,9 @@ For every variable you want the server to use, add that variable to your docker 
 ### Container variables </br>
 | Variable | Options | Default | Details
 |:-|:-|:-|:-|
-SERVERCONFIG | `boolean` | `0` | Toggles whether the server will use a user provided serverconfig file. `0` to use environment variables and `1` for provided file. 
+SERVERCONFIG | `boolean` | `0` | Toggles whether the server will use a user provided serverconfig file. `0` to use environment variables and `1` for provided file.
 
-Check out server details and examples [here on the wiki](https://terraria.fandom.com/wiki/Server#Server_config_file). </br>
+Check out server details and examples [here on the wiki](https://terraria.wiki.gg/wiki/Server#Command-line_parameters). </br>
 
 ### Server variables </br>
 | Variable | Options | Default |
@@ -38,10 +38,10 @@ AUTOCREATE | `1` `2` `3`| `2`
 DIFFICULTY | `0` `1` `2` `3` | `0`
 BANLIST | `string`| `banlist.txt`
 LANGUAGE | `en-US` `de-DE` `it-IT` `fr-FR` `es-ES` `ru-RU` `zh-Hans` `pt-BR` `pl-PL` | `en-US`
-MAXPLAYERS | `number` | `8`
+MAXPLAYERS | `integer` | `8`
 MODPACK | `string` | `NA`
 MOTD | `string` | `NA`
-NPCSTREAM | `number 0-60` | `15`
+NPCSTREAM | `integer 0-60` | `15`
 PASSWORD | `string` | `NA`
 PRIORITY | `0` `1` `2` `3` `4` `5` | `1`
 SECURE | `boolean` | `1`
@@ -80,10 +80,10 @@ If you provide a world file and correctly set the `WORLDNAME` variable, it will 
 
 The root of the tmodloader server files in the container is `/opt/tmodloader/server/` and user items in `(ConfDir)` are mounted at `/opt/tmodloader/config/` </br>
 
-1. Set `SERVERCONFIG` to 1. 
+1. Set `SERVERCONFIG` to 1.
 2. Put the `serverconfig.txt` into `(ConfDir)/`.
 
-[Server configuration details on the Terraria Wiki](https://terraria.fandom.com/wiki/Server#Server_config_file) </br>
+[Server configuration details on the Terraria Wiki](https://terraria.wiki.gg/wiki/Server#Command-line_parameters) </br>
 
 # 6. Docker container
 ### Docker run </br>

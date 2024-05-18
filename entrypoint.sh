@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-echo "tModLoader version $VERSION"
+echo "|| tModLoader version: $VERSION ||"
 
 # Run the variables script to check and process server variables
 source /opt/tmodloader/variables.sh
