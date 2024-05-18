@@ -18,9 +18,8 @@ RUN chmod -R 755 /opt/tmodloader/ &&\
 
 WORKDIR /opt/tmodloader/server/
 
-RUN curl -Lo ./tModLoader.zip https://github.com/tModLoader/tModLoader/releases/download/v${VERSION}/tModLoader.zip
-
-RUN unzip -o ./tModLoader.zip &&\
+RUN curl -Lo ./tModLoader.zip https://github.com/tModLoader/tModLoader/releases/download/v${VERSION}/tModLoader.zip &&\
+    unzip -o ./tModLoader.zip &&\
     rm ./tModLoader.zip &&\
     rm ./serverconfig.txt
 
