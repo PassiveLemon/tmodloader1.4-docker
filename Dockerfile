@@ -8,9 +8,9 @@ RUN mkdir -p /opt/tmodloader/server/ &&\
     mkdir -p /opt/tmodloader/config/ModPacks &&\
     mkdir -p /opt/tmodloader/config/Worlds
 
-COPY entrypoint.sh /opt/tmodloader/
-COPY variables.sh /opt/tmodloader/
-COPY inject.sh /usr/local/bin/inject
+COPY scripts/entrypoint.sh /opt/tmodloader/
+COPY scripts/variables.sh /opt/tmodloader/
+COPY scripts/inject.sh /usr/local/bin/inject
 
 RUN chmod -R 755 /opt/tmodloader/ &&\
     chmod +x /opt/tmodloader/entrypoint.sh &&\
