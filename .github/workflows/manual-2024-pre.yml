@@ -1,10 +1,13 @@
-name: Automatic Update (2024 Pre)
+name: Update (2024 Pre)
 
 on:
   push:
-    branches: master
-  schedule:
-  - cron: "0 */2 * * *"
+    branches:
+      - 'master'
+    paths:
+      - '.github/workflows/**'
+      - 'Dockerfile'
+      - 'scripts/**'
 
 jobs:
   setup-build-push:
@@ -19,16 +22,6 @@ jobs:
           LATEST=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"2024\")) | select(.prerelease == true)] | max_by(.created_at) | .tag_name | sub(\"^v\";\"\")")
           echo "Latest 2024 pre-release is ${LATEST}." >> "$GITHUB_STEP_SUMMARY"
           echo "latest_tag=$LATEST" >> "$GITHUB_OUTPUT"
-
-      - name: Check if version is already published
-        run: |
-          CHECK=$(curl -s "https://hub.docker.com/v2/repositories/passivelemon/tmodloader1.4-docker/tags/${{ steps.get_latest_release_tag.outputs.latest_tag }}")
-          echo $CHECK
-          if echo "${CHECK}" | jq -e ".digest" > /dev/null; then
-            echo "Version ${{ steps.get_latest_release_tag.outputs.latest_tag }} is already published." >> "$GITHUB_STEP_SUMMARY"
-            exit 1
-          fi
-          echo "Version ${{ steps.get_latest_release_tag.outputs.latest_tag }} is not already published." >> "$GITHUB_STEP_SUMMARY"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -54,3 +47,4 @@ jobs:
             --tag ghcr.io/passivelemon/tmodloader1.4-docker:${{ steps.get_latest_release_tag.outputs.latest_tag }} \
             --tag ghcr.io/passivelemon/tmodloader1.4-docker:latest-2024-pre \
             .
+

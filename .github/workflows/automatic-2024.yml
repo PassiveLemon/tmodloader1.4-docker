@@ -1,8 +1,6 @@
-name: Automatic Update (2024)
+name: Automatic Publish (2024)
 
 on:
-  push:
-    branches: master
   schedule:
   - cron: "0 */5 * * *"
 
@@ -57,3 +55,4 @@ jobs:
             --tag ghcr.io/passivelemon/tmodloader1.4-docker:latest-2024 \
             --tag ghcr.io/passivelemon/tmodloader1.4-docker:latest \
             .
+

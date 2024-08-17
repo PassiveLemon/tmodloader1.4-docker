@@ -1,0 +1,52 @@
+name: Update (2024)
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - '.github/workflows/**'
+      - 'Dockerfile'
+      - 'scripts/**'
+
+jobs:
+  setup-build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get latest release tag
+        id: get_latest_release_tag
+        run: |
+          LATEST=$(curl -s https://api.github.com/repos/tModLoader/tModLoader/releases | jq -r "[.[] | select(.tag_name | contains(\"2024\")) | select(.prerelease == false)] | max_by(.created_at) | .tag_name | sub(\"^v\";\"\")")
+          echo "Latest 2024 release is ${LATEST}." >> "$GITHUB_STEP_SUMMARY"
+          echo "latest_tag=$LATEST" >> "$GITHUB_OUTPUT"
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker & GHCR
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "passivelemon" --password-stdin
+          echo "${{ secrets.GHCR_PASSWORD }}" | docker login ghcr.io -u "passivelemon" --password-stdin
+
+      - name: Build the image
+        run: |
+          docker buildx create --name mainbuilder --driver docker-container --platform linux/amd64 --use
+
+          docker buildx build --push \
+            --build-arg VERSION=${{ steps.get_latest_release_tag.outputs.latest_tag }} \
+            --provenance=false \
+            --platform linux/amd64 \
+            --tag passivelemon/tmodloader1.4-docker:${{ steps.get_latest_release_tag.outputs.latest_tag }} \
+            --tag passivelemon/tmodloader1.4-docker:latest-2024 \
+            --tag passivelemon/tmodloader1.4-docker:latest \
+            --tag ghcr.io/passivelemon/tmodloader1.4-docker:${{ steps.get_latest_release_tag.outputs.latest_tag }} \
+            --tag ghcr.io/passivelemon/tmodloader1.4-docker:latest-2024 \
+            --tag ghcr.io/passivelemon/tmodloader1.4-docker:latest \
+            .
+
