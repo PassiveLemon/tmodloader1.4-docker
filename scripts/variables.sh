@@ -29,17 +29,17 @@ VAR_ARRAY[UPNPx]="upnp=${UPNP}"
 VAR_ARRAY[WORLDNAMEx]="worldname=${WORLDNAME}"
 
 # Automatically set variables
-VAR_ARRAY[WORLDx]="world=/opt/terraria/config/Worlds/${WORLDNAME}.wld"
+VAR_ARRAY[WORLDx]="world=/opt/tmodloader/config/Worlds/${WORLDNAME}.wld"
 VAR_ARRAY[MODPACKx]="modpack=/opt/tmodloader/config/ModPacks/${MODPACK}/Mods/enabled.json"
 VAR_ARRAY[MODPATHx]="modpath=/opt/tmodloader/config/ModPacks/${MODPACK}/Mods/"
 
 # Write variables to file
 if [ "$SERVERCONFIG" = "0" ]; then
-  if [ -e "/opt/terraria/config/serverconfig.txt" ]; then
-    rm /opt/terraria/config/serverconfig.txt
+  if [ -e "/opt/tmodloader/config/serverconfig.txt" ]; then
+    rm /opt/tmodloader/config/serverconfig.txt
   fi
   for argument in "${VAR_ARRAY[@]}"; do
-    echo "$argument" >> /opt/terraria/config/serverconfig.txt
+    echo "$argument" >> /opt/tmodloader/config/serverconfig.txt
   done
 fi
 
