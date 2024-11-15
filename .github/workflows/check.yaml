@@ -24,8 +24,8 @@ jobs:
           
           echo "Latest 2024 pre-release is ${PRERELEASE}." >> "$GITHUB_STEP_SUMMARY"
           echo "Latest 2024 release is ${RELEASE}." >> "$GITHUB_STEP_SUMMARY"
-          echo "latest_prerelease=$LATEST" >> "$GITHUB_OUTPUT"
-          echo "latest_release=$LATEST" >> "$GITHUB_OUTPUT"
+          echo "latest_prerelease=$PRERELEASE" >> "$GITHUB_OUTPUT"
+          echo "latest_release=$RELEASE" >> "$GITHUB_OUTPUT"
 
       - name: Check if version is already published
         id: check_releases
@@ -51,13 +51,13 @@ jobs:
     uses: PassiveLemon/tmodloader1.4-docker/.github/workflows/publish.yaml@master
     if: ${{ needs.check_2024.outputs.prerelease == true }}
     with:
-      VERSION: ${{ check_2024.outputs.latest_prerelease }}
+      VERSION: ${{ needs.check_2024.outputs.latest_prerelease }}
       PRERELEASE: true
 
   publish-release:
     uses: PassiveLemon/tmodloader1.4-docker/.github/workflows/publish.yaml@master
     if: ${{ needs.check_2024.outputs.release == true }}
     with:
-      VERSION: ${{ check_2024.outputs.latest_release }}
+      VERSION: ${{ needs.check_2024.outputs.latest_release }}
       PRELRELEASE: false
 
