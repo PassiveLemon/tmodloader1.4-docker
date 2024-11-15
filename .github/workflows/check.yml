@@ -48,16 +48,18 @@ jobs:
           fi
 
   publish-prerelease:
-    uses: PassiveLemon/tmodloader1.4-docker/.github/workflows/publish.yaml@master
     if: ${{ needs.check_2024.outputs.prerelease == true }}
+    uses: PassiveLemon/tmodloader1.4-docker/.github/workflows/publish.yml@master
+    secrets: inherit
     with:
-      VERSION: ${{ needs.check_2024.outputs.latest_prerelease }}
-      PRERELEASE: true
+      version: ${{ needs.check_2024.outputs.latest_prerelease }}
+      prerelease: true
 
   publish-release:
-    uses: PassiveLemon/tmodloader1.4-docker/.github/workflows/publish.yaml@master
     if: ${{ needs.check_2024.outputs.release == true }}
+    uses: PassiveLemon/tmodloader1.4-docker/.github/workflows/publish.yml@master
+    secrets: inherit
     with:
-      VERSION: ${{ needs.check_2024.outputs.latest_release }}
-      PRELRELEASE: false
+      version: ${{ needs.check_2024.outputs.latest_release }}
+      prerelease: false
 

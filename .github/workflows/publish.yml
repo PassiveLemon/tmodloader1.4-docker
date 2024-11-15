@@ -3,11 +3,11 @@ name: Build and push Docker image
 on:
   workflow_call:
     inputs:
-      VERSION:
+      version:
         description: 'tModLoader version'
         required: true
         type: string
-      PRERELEASE:
+      prerelease:
         description: 'If the release is a pre-release'
         required: true
         type: boolean
@@ -40,35 +40,35 @@ jobs:
 
       - name: Build and push Docker image (Pre-release)
         uses: docker/build-push-action@v6
-        if: ${{ github.event.inputs.PRERELEASE == true }}
+        if: ${{ github.event.inputs.prerelease == true }}
         with:
           context: .
           push: true
           platforms: linux/amd64
-          build-args: VERSION=${{ github.event.inputs.VERSION }}
+          build-args: VERSION=${{ github.event.inputs.version }}
           tags: |
             passivelemon/tmodloader1.4-docker:latest-2024-pre
-            passivelemon/tmodloader1.4-docker:${{ github.event.inputs.VERSION }}
+            passivelemon/tmodloader1.4-docker:${{ github.event.inputs.version }}
             ghcr.io/passivelemon/tmodloader1.4-docker:latest-2024-pre
-            ghcr.io/passivelemon/tmodloader1.4-docker:${{ github.event.inputs.VERSION }}
+            ghcr.io/passivelemon/tmodloader1.4-docker:${{ github.event.inputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Build and push Docker image (Release)
         uses: docker/build-push-action@v6
-        if: ${{ github.event.inputs.PRERELEASE == false }}
+        if: ${{ github.event.inputs.prerelease == false }}
         with:
           context: .
           push: true
           platforms: linux/amd64
-          build-args: VERSION=${{ github.event.inputs.VERSION }}
+          build-args: VERSION=${{ github.event.inputs.version }}
           tags: |
             passivelemon/tmodloader1.4-docker:latest
             passivelemon/tmodloader1.4-docker:latest-2024
-            passivelemon/tmodloader1.4-docker:${{ github.event.inputs.VERSION }}
+            passivelemon/tmodloader1.4-docker:${{ github.event.inputs.version }}
             ghcr.io/passivelemon/tmodloader1.4-docker:latest
             ghcr.io/passivelemon/tmodloader1.4-docker:latest-2024
-            ghcr.io/passivelemon/tmodloader1.4-docker:${{ github.event.inputs.VERSION }}
+            ghcr.io/passivelemon/tmodloader1.4-docker:${{ github.event.inputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
