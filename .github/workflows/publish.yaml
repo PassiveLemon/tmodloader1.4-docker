@@ -11,11 +11,6 @@ on:
         description: 'If the release is a pre-release'
         required: true
         type: boolean
-    secrets:
-      DOCKER_PASSWORD:
-        required: true
-      GHCR_PASSWORD:
-        required: true
 
 jobs:
   setup-build-push:
