@@ -9,6 +9,11 @@ jobs:
   # Todo: matrixify this
   check-2024:
     runs-on: ubuntu-latest
+    outputs:
+      prerelease: ${{ steps.check_releases.outputs.prerelease }}
+      latest_prerelease: ${{ steps.get_releases.outputs.latest_prerelease }}
+      release: ${{ steps.check_releases.outputs.release }}
+      latest_release: ${{ steps.get_releases.outputs.latest_release }}
     steps:
       - name: Get releases
         id: get_releases
@@ -42,17 +47,17 @@ jobs:
             echo "release=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Run Publish workflow (Pre-release)
-        uses: passivelemon/PassiveLemon/.github/workflows/publish.yml@master
-        if: ${{ steps.check_releases.outputs.prerelease == true }}
-        with:
-          VERSION: ${{ steps.get_releases.outputs.latest_prerelease }}
-          PRERELEASE: true
+  publish-prerelease:
+    uses: passivelemon/tmodloader1.4-docker/.github/workflows/publish.yml@master
+    if: ${{ needs.check_2024.outputs.prerelease == true }}
+    with:
+      VERSION: ${{ check_2024.outputs.latest_prerelease }}
+      PRERELEASE: true
 
-      - name: Run Publish workflow (Release)
-        uses: passivelemon/PassiveLemon/.github/workflows/publish.yml@master
-        if: ${{ steps.check_releases.outputs.release == true }}
-        with:
-          VERSION: ${{ steps.get_releases.outputs.latest_release }}
-          PRELRELEASE: false
+  publish-release:
+    uses: passivelemon/tmodloader1.4-docker/.github/workflows/publish.yml@master
+    if: ${{ needs.check_2024.outputs.release == true }}
+    with:
+      VERSION: ${{ check_2024.outputs.latest_release }}
+      PRELRELEASE: false
 

@@ -1,7 +1,7 @@
 name: Build and push Docker image
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       VERSION:
         description: 'tModLoader version'
