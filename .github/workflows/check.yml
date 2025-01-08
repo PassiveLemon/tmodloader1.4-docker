@@ -15,6 +15,10 @@ jobs:
       release: ${{ steps.check_releases.outputs.release }}
       latest_release: ${{ steps.get_releases.outputs.latest_release }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - uses: gautamkrishnar/keepalive-workflow@v1
+
       - name: Get releases
         id: get_releases
         run: |
